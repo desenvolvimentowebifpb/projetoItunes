@@ -1,0 +1,112 @@
+Para um bom funcionamento do projeto é necessario seguir a risca os padroes abaixo para criação de codigos.
+Um padrão de codificação visa facilitar o entendimento do código do sistema por qualquer pessoa que conheça e os siga,
+pois estabelece regras definindo como o código deve ser escrito. Seguir padrões de codificação não é difícil: 
+apenas requer atenção.
+
+
+COMENTÁRIOS DE CLASSE
+
+    Todos os arquivos fontes iniciam com um comentário no estilo da linguagem C que lista o nome da classe, versão, data e informações de copyright;
+
+Recomendações:
+
+    Se um arquivo possuir mais de uma classe ou interface, é inserida uma lista com uma pequena descrição de cada classe ou interface que compõe o arquivo;
+
+    É recomendável uma explicação que justifique a declaração de mais de uma classe por arquivo, pois Java só permite uma classe pública por arquivo, dificultando a busca de classes não públicas;
+
+01	 /*
+02	 * @author Leonardo Costa Vieira
+03	 *
+04	 * @email leocg@hotmail.com.br
+05	 *
+06   * Classe Modelo dos Clientes da Loja Online 
+07	 */
+
+
+DOCUMENTAÇÃO DE ATRIBUTOS E VARIAVEIS
+
+Recomendações sobre a utilização de constantes, variáveis de classe e de instância:
+
+    Constantes – para definir uma constante uma variável deve-se rotular como estática e final;
+    Escritas com todas as letras maiúsculas;
+    Quando composta por duas ou mais palavras a separação é feita por um underscore ( _ );
+
+Ex: TAXA, VALOR_MEDIO
+
+    A SUN sugere as seguintes regras de nomeação:
+    Atributos (variáveis) – escritas com letras minúsculas;
+    Mesmo podendo iniciar com ( _ ou $) não o faça;
+    E somente variáveis temporárias devem usar nome com apenas um caractere. Quando a palavra for composta, a separação entre elas é feita por uma letra maiúscula;
+
+1	saldo     // Correto
+2	strTitulo // Correto
+3	floatSaldo// Correto. Palavras reservadas podem ser
+4	          //  usadas como parte do identificador
+5	lâmpada   // Correto, mas inadequado
+6	User_name // Correto, mas não segue as regras de nomeação
+
+Recomendações:
+
+    Fazer uma declaração por linha.
+
+1	int nivel; // nível de indentação
+2	int tamanho;  // tamanho da tabela
+
+    Documentação de uma Variável de Instância
+
+1	 /**
+2	  * This number uniquely identifies a DVD.
+3	  */
+4	 private String upc; // Holds the record UPC identification
+5	 /**
+6	   * Stores the release date of the film in month /day/ year format.
+7	   */
+8	 private Date year = new Date(); // Holds the movie's release date
+
+MÉTODOS
+
+    Métodos construtores devem ser listados antes de métodos estáticos e de instâncias;
+    Na assinatura dos métodos não deve haver espaços entre o nome do método e o parêntese de abertura “(“;
+    A chave de abertura “{” deve aparecer na mesma linha da declaração do método;
+    Os métodos são agrupados por funcionalidade e não pela forma de acesso ou sua condição de estático ou de instância;
+    Métodos de acesso a atributos iniciam com get ou set e finalizam com o nome da variável tendo a primeira letra da variável maiúscula;
+    Métodos: Tem a mesma regra das variáveis;
+    Normalmente são verbos no infinitivo representando a utilidade do método, com exceção dos métodos que retornam um boolean, que devem começar com um verbo no presente;
+    Não se utiliza nenhum caractere especial (ç, é, ã, …);
+    Os nomes não devem ser abreviados (torna o código mais fácil de compreender);
+
+Exemplos de nomes de métodos:
+1	 void adicionarLivro(Livro livro)
+2	 void removerLivro(Livro livro)
+3	 boolean existeUsuario(int codigoUsuario)
+4	 double getSaldo() // metodo de acesso
+5	 void setNome(String nome)// metodo modificador
+
+
+
+PREFIXOS (OBJETIVO: MANTER A UNIFORMIDADE DO CÓDIGO)
+
+Alguns prefixos ja definidos por inumeros programadores java. Aos quais seguiremos durante o projeto.
+
+
+PREFIXOS JDBC
+Connection           conn
+Statement            stmt
+PreparedStatement    pstmt
+ResultSet            rs
+
+PREFIXOS PARA COMPONENTES GRAFICOS
+JButton              btn
+JLabel               lbl
+JTextField           tf
+JTable               tbl
+
+
+
+
+
+
+
+
+
+
