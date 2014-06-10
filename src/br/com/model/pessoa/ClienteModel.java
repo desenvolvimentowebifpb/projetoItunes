@@ -29,7 +29,7 @@ public class ClienteModel extends CadastroModel {
 	private String rg;
 	private String cpf;
 	private String observacao;
-	private Long   idTipoUsuario;
+	private UsuarioModel  usuario;
 	
 	/**
 	 * Construtor DEFAULT da classe;
@@ -234,20 +234,13 @@ public class ClienteModel extends CadastroModel {
 		this.email = email;
 	}
 
-	/**
-	 * @return the idTipoUsuario
-	 */
-	public Long getIdTipoUsuario() {
-		return idTipoUsuario;
+	public UsuarioModel getUsuario() {
+		return usuario;
 	}
 
-	/**
-	 * @param idTipoUsuario the idTipoUsuario to set
-	 */
-	public void setIdTipoUsuario(Long idTipoUsuario) {
-		this.idTipoUsuario = idTipoUsuario;
+	public void setUsuario(UsuarioModel usuario) {
+		this.usuario = usuario;
 	}
-	
-	
+
 	
 }

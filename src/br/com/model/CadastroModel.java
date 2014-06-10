@@ -11,7 +11,7 @@ import java.util.Calendar;
 public class CadastroModel {
 
 	private Long id;
-	private String loginCadastro;
+	private Long loginCadastro;
 	private Calendar dataCadastro;
 	private Calendar dataUltAlteracao;
 	
@@ -39,14 +39,14 @@ public class CadastroModel {
 	/**
 	 * @return the loginCadastro
 	 */
-	public String getLoginCadastro() {
+	public Long getLoginCadastro() {
 		return loginCadastro;
 	}
 
 	/**
 	 * @param loginCadastro the loginCadastro to set
 	 */
-	public void setLoginCadastro(String loginCadastro) {
+	public void setLoginCadastro(Long loginCadastro) {
 		this.loginCadastro = loginCadastro;
 	}
 
