@@ -11,7 +11,7 @@
 			Itunes IFPB e-mail
 		</TD>
 		<TD ALIGN="right" >
-			<A HREF=""><IMG BORDER="0" SRC="<%=(imageUrl + "itunes-logo.png")%>"></A>
+			<A HREF="http://globo.com"><IMG BORDER="0" SRC="./images/itunes-logo.png">"</A>
 			&nbsp;&nbsp;&nbsp;
 		</TD>
 	</TR>
