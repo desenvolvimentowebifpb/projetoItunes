@@ -11,5 +11,13 @@
   		<param-name>jdbcDriver</param-name>
   		<param-value>com.mysql.jdbc.Driver</param-value>
   	</init-param>
+  	<init-param>
+  		<param-name>dbUser</param-name>
+  		<param-value>root</param-value>
+  	</init-param>
+  	<init-param>
+  		<param-name>dbPassword</param-name>
+  		<param-value>91049065</param-value>
+  	</init-param>
   </servlet>
 </web-app>
