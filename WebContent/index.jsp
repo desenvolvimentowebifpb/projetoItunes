@@ -8,9 +8,9 @@
 		<link rel="stylesheet" type="text/css" href="../styles/navi.css">
 		<link rel="stylesheet" type="text/css" href="../styles/tables.css">
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Insert title here</title>
+		<title>Itunes - Loja Online</title>
 	</head>
 	<body>
-		
+		<jsp:include page="../jsp/header.jsp" flush="true"/>
 	</body>
 </html>

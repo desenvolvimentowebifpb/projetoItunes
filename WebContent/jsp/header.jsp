@@ -1,18 +1,18 @@
 
-<div id="top-header">
+<div id="header">
 	<%
 		String base = (String) application.getAttribute("base");
 		String imageUrl = (String) application.getAttribute("imageUrl");
 	%>
 	
-	<TABLE WIDTH="740" CELLPADING="0"
-		   HEIGHT="75" CELLSPACING="0" BORDER="0">
+	<TABLE>
 	<TR>
-		<TD ALIGN="left" BGCOLOR="f6f6f6">
-			<FONT FACE="Verdana" SIZE="4"> Itunes IFPB e-mail</FONT>
+		<TD ALIGN="left">
+			Itunes IFPB e-mail
 		</TD>
-		<TD ALIGN="right" BGCOLOR="f6f6f6">
-			<FONT FACE="Verdana" SIZE="4"> Imagem </FONT>
+		<TD ALIGN="right" >
+			<A HREF=""><IMG BORDER="0" SRC="<%=(imageUrl + "itunes-logo.png")%>"></A>
+			&nbsp;&nbsp;&nbsp;
 		</TD>
 	</TR>
 	</TABLE>
