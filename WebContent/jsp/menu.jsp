@@ -6,5 +6,6 @@
 	<div class="fl_right">
 		<h2>Categorias</h2>
 	</div>
+	<br class="clear" />
 </div>
 

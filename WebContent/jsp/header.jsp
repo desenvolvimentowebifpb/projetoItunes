@@ -1,10 +1,8 @@
 
 <div id="header">
     <div id="logo">
-      <h8>
 	      <a href="#"><img alt="Itunes" src="./images/itunes-logo-small.png"></a>
-	      <p>Sua Loja de Musicas Online</p>
-      </h8>
+	      Sua Loja de Musicas Online
     </div>
     <div id="topnav">
       <ul>
