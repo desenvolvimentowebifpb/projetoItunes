@@ -1,19 +1,19 @@
 
 <div id="header">
-	<%
-		String base = (String) application.getAttribute("base");
-		String imageUrl = (String) application.getAttribute("imageUrl");
-	%>
-	
-	<TABLE>
-	<TR>
-		<TD ALIGN="left">
-			Itunes IFPB e-mail
-		</TD>
-		<TD ALIGN="right" >
-			<A HREF="http://globo.com"><IMG BORDER="0" SRC="./images/itunes-logo.png">"</A>
-			&nbsp;&nbsp;&nbsp;
-		</TD>
-	</TR>
-	</TABLE>
+    <div id="logo">
+      <h8>
+	      <a href="#"><img alt="Itunes" src="./images/itunes-logo-small.png"></a>
+	      <p>Sua Loja de Musicas Online</p>
+      </h8>
+    </div>
+    <div id="topnav">
+      <ul>
+        <li class="active"><a href="index.jsp">Home</a></li>
+        <li><a href="store.jsp">Store</a></li>
+        <li><a href="promocoes.jsp">Promoções</a></li>
+        <li><a href="pedidos.jsp">Pedidos</a></li>
+        <li><a href="restrito.jsp">Restrito</a></li>
+      </ul>
+    </div>
+    <br class="clear" />
 </div>

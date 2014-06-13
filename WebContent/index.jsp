@@ -10,10 +10,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Itunes - Loja Online</title>
 	</head>
-	<body>
-		<div id="body">
-			<jsp:include page="./jsp/header.jsp" flush="true"/>
-		
+	<body id="top">
+		<div class="wrapper">
+			<jsp:include page="./jsp/header.jsp" flush="true"/> 
+		</div>
+		<div class="wrapper">
+			<jsp:include page="./jsp/menu.jsp" flush="true"/>
 		</div>
 	</body>
 </html>

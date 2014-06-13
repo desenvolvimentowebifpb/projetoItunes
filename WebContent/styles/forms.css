@@ -1,3 +1,11 @@
+/*
+Template Name: Darkness
+File: Forms CSS
+Author: OS Templates
+Author URI: http://www.os-templates.com/
+Licence: <a href="http://www.os-templates.com/template-terms">Website Template Licence</a>
+*/
+
 form, fieldset, legend{margin:0; padding:0; border:none;}
 legend{display:none;}
 
