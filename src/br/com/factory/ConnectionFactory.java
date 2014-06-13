@@ -22,6 +22,5 @@ public class ConnectionFactory {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
 	}
 }

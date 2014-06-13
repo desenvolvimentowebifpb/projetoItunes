@@ -29,5 +29,13 @@ public class PreparedStatementFactory {
 			return null;// retornando null
 		}
 	}
+	
+	public void close(){
+		try {
+			pstm.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
