@@ -4,15 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import br.com.factory.ConnectionFactory;
 import br.com.factory.PreparedStatementFactory;
+import br.com.model.pedido.FormaPagamento;
+
 
 public class FormaPagamentoDAO {
 	private Connection conn;
 	private PreparedStatement pstm;
 	private String sql;
-	private String tabela = "";
+	private String tabela = "formapagamento";
 	private ResultSet rs;
 	
 	/**
@@ -61,7 +66,8 @@ public class FormaPagamentoDAO {
 	public boolean atualizar(){
 		conn = new ConnectionFactory().getConnection();
 		sql= "UPDATE "+tabela+" SET" +
-				" =?"+
+				" formaPagamento=?,quantParcelas=?,"
+				+ " loginCadastro=?, dataUltAlteracao=?"+
 				" WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
@@ -78,28 +84,30 @@ public class FormaPagamentoDAO {
 	/**
 	 * Procedure para buscar 1 registro numa TABELA
 	 * */
-	public void buscar(Long id){
+	public FormaPagamento buscar(Long id){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela + " WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
+			FormaPagamento formaPagamento = new FormaPagamento();
 			pstm.setLong(1, id);
 			rs = pstm.executeQuery();
 			
 			while (rs.next()) {
-				
-				
+				formaPagamento=criar(conn, rs);
 			}
+			return formaPagamento;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 	
 	/**
 	 * Buscar todos os registros de uma TABELA
 	 * */
-	public void buscarTodos(){
+	public List<FormaPagamento> buscarTodos(){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela;
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
@@ -107,12 +115,15 @@ public class FormaPagamentoDAO {
 		try {
 			rs = pstm.executeQuery();
 			
+			List<FormaPagamento> list = new ArrayList<FormaPagamento>();
 			while (rs.next()) {
-				
-				
+				list.add(criar(conn, rs));
 			}
+			
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 	}
@@ -122,7 +133,7 @@ public class FormaPagamentoDAO {
 	 * 
 	 * A buscar usa %+string+%
 	 * */
-	public void buscarParte(String string){
+	public List<FormaPagamento> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela + " WHERE like ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
@@ -131,12 +142,16 @@ public class FormaPagamentoDAO {
 			pstm.setString(1, "%"+string+"%");
 			rs = pstm.executeQuery();
 			
+			List<FormaPagamento> list = new ArrayList<FormaPagamento>();
+			
 			while (rs.next()) {
-				
-				
+				list.add(criar(conn, rs));
 			}
+			
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 	}
@@ -144,12 +159,23 @@ public class FormaPagamentoDAO {
 	/**
 	 * Converte o resultSet num objeto em memoria
 	 * */
-	private Object criar(Connection conn, ResultSet rs){
-		Object temp = new Object();
+	private FormaPagamento criar(Connection conn, ResultSet rs){
+		FormaPagamento temp = new FormaPagamento();
 		try {
+			temp.setId(rs.getLong("id"));
 			
-
+			Calendar dataCadastro = Calendar.getInstance();
+			dataCadastro.setTime(rs.getDate("dataCadastro"));
+			temp.setDataCadastro(dataCadastro);
 			
+			Calendar dataUltAlteracao = Calendar.getInstance();
+			dataUltAlteracao.setTime(rs.getDate("dataUltAlteracao"));
+			temp.setDataUltAlteracao(dataUltAlteracao);
+			
+			temp.setLoginCadastro(rs.getLong("loginCadastro"));
+			
+			temp.setFormaPagamento(rs.getString("formaPagamento"));
+			temp.setQuantParcelas(rs.getInt("quantParcelas"));
 			return temp;
 		} catch (Exception e) {
 			return null;

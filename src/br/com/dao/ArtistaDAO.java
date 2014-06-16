@@ -46,7 +46,7 @@ public class ArtistaDAO {
 		conn = new ConnectionFactory().getConnection();
 		sql = "INSERT INTO "+ tabela +
 				" (nomeArtista , loginCadastro, dataCadastro, dataUltAlteracao)"+ 
-				"VALUES(" +
+				" VALUES(" +
 				"?,?,?,?)";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
@@ -70,16 +70,15 @@ public class ArtistaDAO {
 	public boolean atualizar(Artista artista){
 		conn = new ConnectionFactory().getConnection();
 		sql= "UPDATE "+tabela+" SET" +
-				" nomeArtista=?, loginCadastro=?, dataCadastro=?, dataUltAlteracao=?"+
+				" nomeArtista=?, loginCadastro=?, dataUltAlteracao=? "+
 				" WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
 			pstm.setString(1, artista.getNomeArtista());
 			pstm.setLong(2, artista.getLoginCadastro());
-			pstm.setDate(3, new java.sql.Date(artista.getDataCadastro().getTimeInMillis()));
-			pstm.setDate(4, new java.sql.Date(artista.getDataUltAlteracao().getTimeInMillis()));
-			pstm.setLong(5, artista.getId());
+			pstm.setDate(3, new java.sql.Date(artista.getDataUltAlteracao().getTimeInMillis()));
+			pstm.setLong(4, artista.getId());
 			pstm.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -91,7 +90,7 @@ public class ArtistaDAO {
 	/**
 	 * Procedure para buscar 1 registro numa TABELA
 	 * */
-	public void buscar(Long id){
+	public Artista buscar(Long id){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela + " WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
@@ -100,12 +99,15 @@ public class ArtistaDAO {
 			pstm.setLong(1, id);
 			rs = pstm.executeQuery();
 			
+			Artista artista = new Artista();
 			while (rs.next()) {
-				
-				
+				artista = criar(conn, rs);				
 			}
+			
+			return artista;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 	

@@ -47,7 +47,7 @@ public class ClienteDAO {
 				+ ",endereco,enderecoComplemento,bairro,cidade,uf"
 				+ ",cep,rg,cpf,observacao,idUsuario"
 				+ ",loginCadastro, dataCadastro, dataUltAlteracao)"+ 
-				"VALUES(" +
+				" VALUES(" +
 				"?,?,?,?,?"
 				+ ",?,?,?,?,?"
 				+ ",?,?,?,?,?"
@@ -91,36 +91,33 @@ public class ClienteDAO {
 	public boolean atualizar(Cliente cliente){
 		conn = new ConnectionFactory().getConnection();
 		sql= "UPDATE "+tabela+" SET" +
-				"nome=?,sobrenome=?,dataNascimento=?,sexo=?,email=?"
+				"dataNascimento=?,sexo=?,email=?"
 				+ ",endereco=?,enderecoComplemento=?,bairro=?,cidade=?,uf=?"
 				+ ",cep=?,rg=?,cpf=?,observacao=?,idUsuario=?"
-				+ ",loginCadastro=?, dataCadastro=?, dataUltAlteracao=?"+
+				+ ",loginCadastro=?, dataUltAlteracao=?"+
 				" WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			pstm.setString(1, cliente.getNome());
-			pstm.setString(0, cliente.getSobrenome());
-			pstm.setDate(3, new java.sql.Date(cliente.getDataNascimento().getTimeInMillis()));
-			pstm.setString(4, cliente.getSexo());
-			pstm.setString(5, cliente.getEmail());
+			pstm.setDate(1, new java.sql.Date(cliente.getDataNascimento().getTimeInMillis()));
+			pstm.setString(2, cliente.getSexo());
+			pstm.setString(3, cliente.getEmail());
 			
-			pstm.setString(6, cliente.getEndereco());
-			pstm.setString(7, cliente.getEnderecoComplemento());
-			pstm.setString(8, cliente.getBarro());
-			pstm.setString(9, cliente.getCidade());
-			pstm.setString(10, cliente.getUf());
+			pstm.setString(4, cliente.getEndereco());
+			pstm.setString(5, cliente.getEnderecoComplemento());
+			pstm.setString(6, cliente.getBarro());
+			pstm.setString(7, cliente.getCidade());
+			pstm.setString(8, cliente.getUf());
 
-			pstm.setString(11, cliente.getCep());
-			pstm.setString(12, cliente.getRg());
-			pstm.setString(13, cliente.getCpf());
-			pstm.setString(14, cliente.getObservacao());
-			pstm.setLong(15, cliente.getUsuario().getId());
+			pstm.setString(9, cliente.getCep());
+			pstm.setString(10, cliente.getRg());
+			pstm.setString(11, cliente.getCpf());
+			pstm.setString(12, cliente.getObservacao());
+			pstm.setLong(13, cliente.getUsuario().getId());
 			
-			pstm.setLong(16, cliente.getLoginCadastro());
-			pstm.setDate(17, new java.sql.Date(cliente.getDataCadastro().getTimeInMillis()));
-			pstm.setDate(18, new java.sql.Date(cliente.getDataUltAlteracao().getTimeInMillis()));
-			pstm.setLong(19, cliente.getId());
+			pstm.setLong(14, cliente.getLoginCadastro());
+			pstm.setDate(15, new java.sql.Date(cliente.getDataUltAlteracao().getTimeInMillis()));
+			pstm.setLong(16, cliente.getId());
 			pstm.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -132,7 +129,7 @@ public class ClienteDAO {
 	/**
 	 * Procedure para buscar 1 registro numa TABELA
 	 * */
-	public void buscar(Long id){
+	public Cliente buscar(Long id){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela + " WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
@@ -140,13 +137,14 @@ public class ClienteDAO {
 		try {
 			pstm.setLong(1, id);
 			rs = pstm.executeQuery();
-			
+			Cliente cliente = new Cliente();
 			while (rs.next()) {
-				
-				
+				cliente = criar(conn, rs);
 			}
+			return cliente;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 	

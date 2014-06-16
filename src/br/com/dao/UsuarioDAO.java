@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import br.com.factory.ConnectionFactory;
 import br.com.factory.PreparedStatementFactory;
@@ -103,20 +105,21 @@ public class UsuarioDAO {
 	/**
 	 * Buscar todos os registros de uma TABELA
 	 * */
-	public void buscarTodos(){
+	public List<Usuario> buscarTodos(){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela;
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
 			rs = pstm.executeQuery();
-			
+			List<Usuario> list = new ArrayList<Usuario>();
 			while (rs.next()) {
-				
-				
+				list.add(criar(conn, rs));
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 	}
@@ -126,7 +129,7 @@ public class UsuarioDAO {
 	 * 
 	 * A buscar usa %+string+%
 	 * */
-	public void buscarParte(String string){
+	public List<Usuario> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela + " WHERE like ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
@@ -134,15 +137,15 @@ public class UsuarioDAO {
 		try {
 			pstm.setString(1, "%"+string+"%");
 			rs = pstm.executeQuery();
-			
+			List<Usuario> list = new ArrayList<Usuario>();
 			while (rs.next()) {
-				
-				
+				list.add(criar(conn, rs));
 			}
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
-		
 	}
 	
 	/**
@@ -168,8 +171,6 @@ public class UsuarioDAO {
 			temp.setEmail(rs.getString("email"));
 			temp.setLembreteSenha(rs.getString("lembreteSenha"));
 			temp.setTipoUsuario(new TipoUsuarioDAO().buscar(rs.getLong("tipoUsuario")));
-			
-
 			
 			return temp;
 		} catch (Exception e) {
