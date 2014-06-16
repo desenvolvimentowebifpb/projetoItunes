@@ -9,13 +9,13 @@ import br.com.model.CadastroModel;
  *
  * Classe Modelo do Tipo de `Produto da Loja Online 
  */
-public class ProdutoTipoModel extends CadastroModel{
+public class ProdutoTipo extends CadastroModel{
 	private String tipoProduto;
 	
 	/**
 	 * Construtor DEFAULT da Classe.
 	 */
-	public ProdutoTipoModel() {
+	public ProdutoTipo() {
 		super();
 	}
 

@@ -8,7 +8,7 @@ import br.com.model.CadastroModel;
  *
  * Classe Modelo dos Produtos da Loja Online 
  */
-public class ProdutoFileModel extends CadastroModel {
+public class ProdutoFile extends CadastroModel {
 	
 	private Long codProduto;
 	private byte[] file;
@@ -16,7 +16,7 @@ public class ProdutoFileModel extends CadastroModel {
 	/**
 	 * construtor default da classe
 	 * */
-	public ProdutoFileModel() {
+	public ProdutoFile() {
 		super();
 	}
 

@@ -13,7 +13,7 @@ import br.com.model.CadastroModel;
  * Classe Modelo do Detalhe dos Pedidos do Sistema
  */
 
-public class PedidoDetalheModel extends CadastroModel{
+public class PedidoDetalhe extends CadastroModel{
 	
 	private Long codPedido;
 	private Long codItem;
@@ -26,7 +26,7 @@ public class PedidoDetalheModel extends CadastroModel{
 	/**
 	 * Construtor Default da Classe
 	 * */
-	public PedidoDetalheModel() {
+	public PedidoDetalhe() {
 		super();
 	}
 

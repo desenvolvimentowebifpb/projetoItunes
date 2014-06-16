@@ -9,13 +9,13 @@ import br.com.model.CadastroModel;
  *
  * Classe Modelo dos Generos Musicais 
  */
-public class GeneroModel extends CadastroModel{
+public class Genero extends CadastroModel{
 	private String nomeGenero;
 	
 	/**
 	 * Construtor DEFAULT da Classe.
 	 */
-	public GeneroModel() {
+	public Genero() {
 		super();
 	}
 

@@ -9,13 +9,13 @@ import br.com.model.CadastroModel;
  *
  * Classe Modelo dos Artistas da Loja Online 
  */
-public class ArtistaModel extends CadastroModel{
+public class Artista extends CadastroModel{
 	private String nomeArtista;
 
 	/**
 	 * Construtor DEFAULT da Classe.
 	 */
-	public ArtistaModel() {
+	public Artista() {
 		super();
 	}
 

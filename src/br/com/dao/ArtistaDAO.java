@@ -10,7 +10,7 @@ import java.util.List;
 
 import br.com.factory.ConnectionFactory;
 import br.com.factory.PreparedStatementFactory;
-import br.com.model.pessoa.ArtistaModel;
+import br.com.model.pessoa.Artista;
 
 
 
@@ -42,7 +42,7 @@ public class ArtistaDAO {
 	/**
 	 * Procedure para inserir um registro novo na TABELA
 	 * */
-	public boolean inserir(ArtistaModel artista){
+	public boolean inserir(Artista artista){
 		conn = new ConnectionFactory().getConnection();
 		sql = "INSERT INTO "+ tabela +
 				" (nomeArtista , loginCadastro, dataCadastro, dataUltAlteracao)"+ 
@@ -67,7 +67,7 @@ public class ArtistaDAO {
 	/**
 	 *Procedure para atualizar um registro numa TABELA 
 	 * */
-	public boolean atualizar(ArtistaModel artista){
+	public boolean atualizar(Artista artista){
 		conn = new ConnectionFactory().getConnection();
 		sql= "UPDATE "+tabela+" SET" +
 				" nomeArtista=?, loginCadastro=?, dataCadastro=?, dataUltAlteracao=?"+
@@ -112,14 +112,14 @@ public class ArtistaDAO {
 	/**
 	 * Buscar todos os registros de uma TABELA
 	 * */
-	public List<ArtistaModel> buscarTodos(){
+	public List<Artista> buscarTodos(){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela;
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
 			rs = pstm.executeQuery();
-			List<ArtistaModel> list = new ArrayList<>();
+			List<Artista> list = new ArrayList<>();
 			
 			while (rs.next()) {
 				list.add(criar(conn, rs));
@@ -141,7 +141,7 @@ public class ArtistaDAO {
 	 * 
 	 * A buscar usa %+string+%
 	 * */
-	public List<ArtistaModel> buscarParte(String string){
+	public List<Artista> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela + " WHERE nomeArtista like ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
@@ -150,7 +150,7 @@ public class ArtistaDAO {
 			pstm.setString(1, "%"+string+"%");
 			rs = pstm.executeQuery();
 			
-			List<ArtistaModel> list = new ArrayList<>();
+			List<Artista> list = new ArrayList<>();
 			
 			while (rs.next()) {
 				list.add(criar(conn, rs));
@@ -170,8 +170,8 @@ public class ArtistaDAO {
 	/**
 	 * Converte o resultSet num objeto em memoria
 	 * */
-	private ArtistaModel criar(Connection conn, ResultSet rs){
-		ArtistaModel temp = new ArtistaModel();
+	private Artista criar(Connection conn, ResultSet rs){
+		Artista temp = new Artista();
 		try {
 			temp.setId(rs.getLong("id"));
 			

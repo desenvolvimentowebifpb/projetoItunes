@@ -13,7 +13,7 @@ import br.com.model.CadastroModel;
  *
  * Classe Modelo dos Clientes da Loja Online 
  */
-public class ClienteModel extends CadastroModel {
+public class Cliente extends CadastroModel {
 
 	private String nome;
 	private String sobrenome;
@@ -29,12 +29,12 @@ public class ClienteModel extends CadastroModel {
 	private String rg;
 	private String cpf;
 	private String observacao;
-	private UsuarioModel  usuario;
+	private Usuario  usuario;
 	
 	/**
 	 * Construtor DEFAULT da classe;
 	 */
-	public ClienteModel() {
+	public Cliente() {
 		super();
 	}
 
@@ -234,11 +234,11 @@ public class ClienteModel extends CadastroModel {
 		this.email = email;
 	}
 
-	public UsuarioModel getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(UsuarioModel usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 

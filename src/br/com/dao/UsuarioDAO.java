@@ -4,19 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import br.com.factory.ConnectionFactory;
 import br.com.factory.PreparedStatementFactory;
-import br.com.model.pessoa.TipoUsuario;
+import br.com.model.pessoa.Usuario;
 
-public class TipoUsuarioDAO {
+public class UsuarioDAO {
 	private Connection conn;
 	private PreparedStatement pstm;
 	private String sql;
-	private String tabela = "tipousuario";
+	private String tabela = "usuario";
 	private ResultSet rs;
 	
 	/**
@@ -40,19 +38,16 @@ public class TipoUsuarioDAO {
 	/**
 	 * Procedure para inserir um registro novo na TABELA
 	 * */
-	public boolean inserir(TipoUsuario tipoUsuario){
+	public boolean inserir(){
 		conn = new ConnectionFactory().getConnection();
 		sql = "INSERT INTO "+ tabela +
-				" (tipoUsuario , loginCadastro, dataCadastro, dataUltAlteracao)"+ 
+				" (id)"+ 
 				"VALUES(" +
-				"?,?,?,?)";
+				"?)";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			pstm.setString(1, tipoUsuario.getTipoUsuario());
-			pstm.setLong(2, tipoUsuario.getLoginCadastro());
-			pstm.setDate(3, new java.sql.Date(tipoUsuario.getDataCadastro().getTimeInMillis()));
-			pstm.setDate(4, new java.sql.Date(tipoUsuario.getDataUltAlteracao().getTimeInMillis()));
+			pstm.setLong(1, new Long(1));
 			pstm.execute();
 			
 			return true;
@@ -65,19 +60,15 @@ public class TipoUsuarioDAO {
 	/**
 	 *Procedure para atualizar um registro numa TABELA 
 	 * */
-	public boolean atualizar(TipoUsuario tipoUsuario){
+	public boolean atualizar(){
 		conn = new ConnectionFactory().getConnection();
 		sql= "UPDATE "+tabela+" SET" +
-				" tipoUsuario=?, loginCadastro=?, dataCadastro=?, dataUltAlteracao=?"+
+				" =?"+
 				" WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			pstm.setString(1, tipoUsuario.getTipoUsuario());
-			pstm.setLong(2, tipoUsuario.getLoginCadastro());
-			pstm.setDate(3, new java.sql.Date(tipoUsuario.getDataCadastro().getTimeInMillis()));
-			pstm.setDate(4, new java.sql.Date(tipoUsuario.getDataUltAlteracao().getTimeInMillis()));
-			pstm.setLong(5, tipoUsuario.getId());
+			pstm.setLong(1, new Long(1));
 			pstm.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -89,21 +80,20 @@ public class TipoUsuarioDAO {
 	/**
 	 * Procedure para buscar 1 registro numa TABELA
 	 * */
-	public TipoUsuario buscar(Long id){
+	public Usuario buscar(Long id){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela + " WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			TipoUsuario tipoUsuario = new TipoUsuario();
+			Usuario usuario = new Usuario();
 			pstm.setLong(1, id);
 			rs = pstm.executeQuery();
 			
 			while (rs.next()) {
-				tipoUsuario = criar(conn, rs);
+				usuario=criar(conn, rs);
 			}
-			
-			return tipoUsuario;
+			return usuario;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -113,26 +103,20 @@ public class TipoUsuarioDAO {
 	/**
 	 * Buscar todos os registros de uma TABELA
 	 * */
-	public List<TipoUsuario> buscarTodos(){
+	public void buscarTodos(){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela;
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
 			rs = pstm.executeQuery();
-			List<TipoUsuario> list = new ArrayList<>();
 			
 			while (rs.next()) {
-				list.add(criar(conn, rs));
+				
+				
 			}
-			
-			if (rs!=null) {rs.close();}
-			pstm.close();
-			conn.close();
-			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 		
 	}
@@ -142,28 +126,21 @@ public class TipoUsuarioDAO {
 	 * 
 	 * A buscar usa %+string+%
 	 * */
-	public List<TipoUsuario> buscarParte(String string){
+	public void buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE nomeArtista like ?";
+		sql = "SELECT * FROM " + tabela + " WHERE like ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
 			pstm.setString(1, "%"+string+"%");
 			rs = pstm.executeQuery();
 			
-			List<TipoUsuario> list = new ArrayList<>();
-			
 			while (rs.next()) {
-				list.add(criar(conn, rs));
+				
+				
 			}
-			
-			if (rs!=null) {rs.close();}
-			pstm.close();
-			conn.close();
-			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 		
 	}
@@ -171,8 +148,8 @@ public class TipoUsuarioDAO {
 	/**
 	 * Converte o resultSet num objeto em memoria
 	 * */
-	private TipoUsuario criar(Connection conn, ResultSet rs){
-		TipoUsuario temp = new TipoUsuario();
+	private Usuario criar(Connection conn, ResultSet rs){
+		Usuario temp = new Usuario();
 		try {
 			temp.setId(rs.getLong("id"));
 			
@@ -186,7 +163,13 @@ public class TipoUsuarioDAO {
 			
 			temp.setLoginCadastro(rs.getLong("loginCadastro"));
 			
-			temp.setTipoUsuario(rs.getString("tipoUsuario"));
+			temp.setLogin(rs.getString("login"));
+			temp.setSenha(rs.getString("senha"));
+			temp.setEmail(rs.getString("email"));
+			temp.setLembreteSenha(rs.getString("lembreteSenha"));
+			temp.setTipoUsuario(new TipoUsuarioDAO().buscar(rs.getLong("tipoUsuario")));
+			
+
 			
 			return temp;
 		} catch (Exception e) {

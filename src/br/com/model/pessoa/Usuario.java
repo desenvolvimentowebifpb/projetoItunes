@@ -11,7 +11,7 @@ import br.com.model.CadastroModel;
  *
  * Classe Modelo dos Usuarios da Loja Online 
  */
-public class UsuarioModel extends CadastroModel {
+public class Usuario extends CadastroModel {
 	private String login;
 	private String senha;
 	private String email;
@@ -21,7 +21,7 @@ public class UsuarioModel extends CadastroModel {
 	/**
 	 * 
 	 */
-	public UsuarioModel() {
+	public Usuario() {
 		super();
 	}
 

@@ -6,7 +6,7 @@ package br.com.model.produto;
 import java.math.BigDecimal;
 
 import br.com.model.CadastroModel;
-import br.com.model.pessoa.ArtistaModel;
+import br.com.model.pessoa.Artista;
 
 /**
  * @author Leonardo Costa Vieira
@@ -14,19 +14,19 @@ import br.com.model.pessoa.ArtistaModel;
  *
  * Classe Modelo dos Produtos da Loja Online 
  */
-public class ProdutoModel extends CadastroModel{
+public class Produto extends CadastroModel{
 	private String descricao;
 	private byte[] image;
-	private ArtistaModel artista = new ArtistaModel();
-	private GeneroModel genero = new GeneroModel();
-	private ProdutoTipoModel tipoProduto = new ProdutoTipoModel();
+	private Artista artista = new Artista();
+	private Genero genero = new Genero();
+	private ProdutoTipo tipoProduto = new ProdutoTipo();
 	private BigDecimal precoPadrao;
 	private BigDecimal precoPromocional;
 	
 	/**
 	 * Construtor Default da CLASSE;
 	 */
-	public ProdutoModel() {
+	public Produto() {
 		super();
 	}
 
@@ -47,42 +47,42 @@ public class ProdutoModel extends CadastroModel{
 	/**
 	 * @return the artista
 	 */
-	public ArtistaModel getArtista() {
+	public Artista getArtista() {
 		return artista;
 	}
 
 	/**
 	 * @param artista the artista to set
 	 */
-	public void setArtista(ArtistaModel artista) {
+	public void setArtista(Artista artista) {
 		this.artista = artista;
 	}
 
 	/**
 	 * @return the genero
 	 */
-	public GeneroModel getGenero() {
+	public Genero getGenero() {
 		return genero;
 	}
 
 	/**
 	 * @param genero the genero to set
 	 */
-	public void setGenero(GeneroModel genero) {
+	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
 
 	/**
 	 * @return the tipoProduto
 	 */
-	public ProdutoTipoModel getTipoProduto() {
+	public ProdutoTipo getTipoProduto() {
 		return tipoProduto;
 	}
 
 	/**
 	 * @param tipoProduto the tipoProduto to set
 	 */
-	public void setTipoProduto(ProdutoTipoModel tipoProduto) {
+	public void setTipoProduto(ProdutoTipo tipoProduto) {
 		this.tipoProduto = tipoProduto;
 	}
 

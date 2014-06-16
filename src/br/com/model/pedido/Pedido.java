@@ -13,7 +13,7 @@ import br.com.model.CadastroModel;
  *
  * Classe Modelo dos Pedidos do Sistema
  */
-public class PedidoModel extends CadastroModel {
+public class Pedido extends CadastroModel {
 	
 	private Long codCliente;
 	private BigDecimal valorTotal;
@@ -22,9 +22,9 @@ public class PedidoModel extends CadastroModel {
 	private Calendar dataPedido;
 	private Calendar dataDownload;
 	private FormaPagamento formaPagamento;
-	private List<PedidoDetalheModel> listItens = new ArrayList<PedidoDetalheModel>();
+	private List<PedidoDetalhe> listItens = new ArrayList<PedidoDetalhe>();
 	
-	public PedidoModel() {
+	public Pedido() {
 		super();
 	}
 
@@ -129,14 +129,14 @@ public class PedidoModel extends CadastroModel {
 	/**
 	 * @return the listItens
 	 */
-	public List<PedidoDetalheModel> getListItens() {
+	public List<PedidoDetalhe> getListItens() {
 		return listItens;
 	}
 
 	/**
 	 * @param listItens the listItens to set
 	 */
-	public void setListItens(List<PedidoDetalheModel> listItens) {
+	public void setListItens(List<PedidoDetalhe> listItens) {
 		this.listItens = listItens;
 	}
 	
