@@ -40,16 +40,25 @@ public class UsuarioDAO {
 	/**
 	 * Procedure para inserir um registro novo na TABELA
 	 * */
-	public boolean inserir(){
+	public boolean inserir(Usuario usuario){
 		conn = new ConnectionFactory().getConnection();
 		sql = "INSERT INTO "+ tabela +
-				" (id)"+ 
+				" (login, senha, email, lembreteSenha, tipoUsuario,"
+				+ "loginCadastro, dataCadastro, dataUltAlteracao)"+ 
 				"VALUES(" +
-				"?)";
+				"?,?,?,?,?,"
+				+ "?,?,?)";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			pstm.setLong(1, new Long(1));
+			pstm.setString(1, usuario.getLogin());
+			pstm.setString(2, usuario.getSenha());
+			pstm.setString(3, usuario.getEmail());
+			pstm.setString(4, usuario.getLembreteSenha());
+			pstm.setLong(5, usuario.getTipoUsuario().getId());
+			pstm.setLong(6, usuario.getLoginCadastro());
+			pstm.setDate(7, new java.sql.Date(usuario.getDataCadastro().getTimeInMillis()));
+			pstm.setDate(8, new java.sql.Date(usuario.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
 			
 			return true;
@@ -62,15 +71,19 @@ public class UsuarioDAO {
 	/**
 	 *Procedure para atualizar um registro numa TABELA 
 	 * */
-	public boolean atualizar(){
+	public boolean atualizar(Usuario usuario){
 		conn = new ConnectionFactory().getConnection();
 		sql= "UPDATE "+tabela+" SET" +
-				" =?"+
+				" senha=?, lembreteSenha=?, loginCadastro=?, dataUltAlteracao=? "+
 				" WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			pstm.setLong(1, new Long(1));
+			pstm.setString(1, usuario.getSenha());
+			pstm.setString(2, usuario.getLembreteSenha());
+			pstm.setLong(3, usuario.getLoginCadastro());
+			pstm.setDate(4, new java.sql.Date(usuario.getDataUltAlteracao().getTimeInMillis()));
+			pstm.setLong(5, new Long(1));
 			pstm.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -90,6 +103,29 @@ public class UsuarioDAO {
 		try {
 			Usuario usuario = new Usuario();
 			pstm.setLong(1, id);
+			rs = pstm.executeQuery();
+			
+			while (rs.next()) {
+				usuario=criar(conn, rs);
+			}
+			return usuario;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * Procedure para buscar 1 registro numa TABELA
+	 * */
+	public Usuario buscar(String login){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela + " WHERE login=?";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			Usuario usuario = new Usuario();
+			pstm.setString(1, login);
 			rs = pstm.executeQuery();
 			
 			while (rs.next()) {
@@ -131,7 +167,7 @@ public class UsuarioDAO {
 	 * */
 	public List<Usuario> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE like ?";
+		sql = "SELECT * FROM " + tabela + " WHERE login like ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {

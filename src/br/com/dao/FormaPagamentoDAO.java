@@ -41,16 +41,20 @@ public class FormaPagamentoDAO {
 	/**
 	 * Procedure para inserir um registro novo na TABELA
 	 * */
-	public boolean inserir(){
+	public boolean inserir(FormaPagamento formaPagamento){
 		conn = new ConnectionFactory().getConnection();
 		sql = "INSERT INTO "+ tabela +
-				" (id)"+ 
+				" (formaPagamento, quantParcelas, loginCadastro, dataCadastro, dataUltAlteracao)"+ 
 				"VALUES(" +
-				"?)";
+				"?,?,?,?,?)";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			pstm.setLong(1, new Long(1));
+			pstm.setString(1, formaPagamento.getFormaPagamento());
+			pstm.setInt(2, formaPagamento.getQuantParcelas());
+			pstm.setLong(3, formaPagamento.getLoginCadastro());
+			pstm.setDate(4, new java.sql.Date(formaPagamento.getDataCadastro().getTimeInMillis()));
+			pstm.setDate(5, new java.sql.Date(formaPagamento.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
 			
 			return true;
@@ -63,7 +67,7 @@ public class FormaPagamentoDAO {
 	/**
 	 *Procedure para atualizar um registro numa TABELA 
 	 * */
-	public boolean atualizar(){
+	public boolean atualizar(FormaPagamento formaPagamento){
 		conn = new ConnectionFactory().getConnection();
 		sql= "UPDATE "+tabela+" SET" +
 				" formaPagamento=?,quantParcelas=?,"
@@ -72,7 +76,10 @@ public class FormaPagamentoDAO {
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			pstm.setLong(1, new Long(1));
+			pstm.setString(1, formaPagamento.getFormaPagamento());
+			pstm.setInt(2, formaPagamento.getQuantParcelas());
+			pstm.setLong(3, formaPagamento.getLoginCadastro());
+			pstm.setDate(4, new java.sql.Date(formaPagamento.getDataUltAlteracao().getTimeInMillis()));
 			pstm.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -135,7 +142,7 @@ public class FormaPagamentoDAO {
 	 * */
 	public List<FormaPagamento> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE like ?";
+		sql = "SELECT * FROM " + tabela + " WHERE formaPagamento like ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {

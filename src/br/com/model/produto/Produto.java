@@ -19,7 +19,7 @@ public class Produto extends CadastroModel{
 	private byte[] image;
 	private Artista artista = new Artista();
 	private Genero genero = new Genero();
-	private ProdutoTipo tipoProduto = new ProdutoTipo();
+	private TipoProduto tipoProduto = new TipoProduto();
 	private BigDecimal precoPadrao;
 	private BigDecimal precoPromocional;
 	
@@ -75,14 +75,14 @@ public class Produto extends CadastroModel{
 	/**
 	 * @return the tipoProduto
 	 */
-	public ProdutoTipo getTipoProduto() {
+	public TipoProduto getTipoProduto() {
 		return tipoProduto;
 	}
 
 	/**
 	 * @param tipoProduto the tipoProduto to set
 	 */
-	public void setTipoProduto(ProdutoTipo tipoProduto) {
+	public void setTipoProduto(TipoProduto tipoProduto) {
 		this.tipoProduto = tipoProduto;
 	}
 

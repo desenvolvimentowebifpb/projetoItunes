@@ -182,7 +182,7 @@ public class ClienteDAO {
 	 * */
 	public List<Cliente> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE nomeArtista like ?";
+		sql = "SELECT * FROM " + tabela + " WHERE nome like ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {

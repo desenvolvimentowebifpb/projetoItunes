@@ -68,16 +68,15 @@ public class TipoUsuarioDAO {
 	public boolean atualizar(TipoUsuario tipoUsuario){
 		conn = new ConnectionFactory().getConnection();
 		sql= "UPDATE "+tabela+" SET" +
-				" tipoUsuario=?, loginCadastro=?, dataCadastro=?, dataUltAlteracao=?"+
+				" tipoUsuario=?, loginCadastro=?, dataUltAlteracao=?"+
 				" WHERE id=?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
 			pstm.setString(1, tipoUsuario.getTipoUsuario());
 			pstm.setLong(2, tipoUsuario.getLoginCadastro());
-			pstm.setDate(3, new java.sql.Date(tipoUsuario.getDataCadastro().getTimeInMillis()));
-			pstm.setDate(4, new java.sql.Date(tipoUsuario.getDataUltAlteracao().getTimeInMillis()));
-			pstm.setLong(5, tipoUsuario.getId());
+			pstm.setDate(3, new java.sql.Date(tipoUsuario.getDataUltAlteracao().getTimeInMillis()));
+			pstm.setLong(4, tipoUsuario.getId());
 			pstm.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -144,7 +143,7 @@ public class TipoUsuarioDAO {
 	 * */
 	public List<TipoUsuario> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE nomeArtista like ?";
+		sql = "SELECT * FROM " + tabela + " WHERE tipoUsuario like ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
