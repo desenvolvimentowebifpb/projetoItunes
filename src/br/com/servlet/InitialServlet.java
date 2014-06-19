@@ -1,17 +1,19 @@
 package br.com.servlet;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
 /**
- * Servlet implementation class ControllerServlet
+ * Servlet implementation class InitialServlet
  */
-public class ControllerServlet extends HttpServlet {
+@WebServlet("/initial.do")
+public class InitialServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ControllerServlet() {
+    public InitialServlet() {
         super();
     }
 
