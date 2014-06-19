@@ -11,7 +11,7 @@ import br.com.model.CadastroModel;
 public class ProdutoFile extends CadastroModel {
 	
 	private Long codProduto;
-	private byte[] file;
+	private byte[] arquivo;
 	
 	/**
 	 * construtor default da classe
@@ -37,15 +37,15 @@ public class ProdutoFile extends CadastroModel {
 	/**
 	 * @return the file
 	 */
-	public byte[] getFile() {
-		return file;
+	public byte[] getArquivo() {
+		return arquivo;
 	}
 
 	/**
-	 * @param file the file to set
+	 * @param arquivo the file to set
 	 */
-	public void setFile(byte[] file) {
-		this.file = file;
+	public void setArquivo(byte[] arquivo) {
+		this.arquivo = arquivo;
 	}
 
 	
