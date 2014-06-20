@@ -110,6 +110,30 @@ public class ArtistaDAO {
 			return null;
 		}
 	}
+
+	/**
+	 * Procedure para buscar 1 registro numa TABELA
+	 * */
+	public Artista buscar(String nomeArtista){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela + " WHERE nomeArtista=?";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			pstm.setString(1, nomeArtista);
+			rs = pstm.executeQuery();
+			
+			Artista artista = new Artista();
+			while (rs.next()) {
+				artista = criar(conn, rs);				
+			}
+			
+			return artista;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	/**
 	 * Buscar todos os registros de uma TABELA

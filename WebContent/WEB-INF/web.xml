@@ -4,12 +4,5 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <servlet>
-  	<servlet-name>CadastroProdutoServlet</servlet-name>
-  	<servlet-class>CadastroProdutoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>CadastroProdutoServlet</servlet-name>
-  	<url-pattern>cp.do</url-pattern>
-  </servlet-mapping>
+
 </web-app>

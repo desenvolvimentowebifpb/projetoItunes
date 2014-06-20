@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.dao.ArtistaDAO;
+import br.com.dao.GeneroDAO;
+import br.com.dao.TipoProdutoDAO;
 import br.com.model.produto.Produto;
 
 /**
@@ -31,7 +34,10 @@ public class CadastroProdutoServlet extends HttpServlet {
 		
 		Produto produto = new Produto();
 		produto.setDescricao(request.getParameter("descricao"));
-		System.out.println(produto.getDescricao());
+		produto.setGenero(new GeneroDAO().buscar(request.getParameter("cbGenero")));
+		produto.setArtista(new ArtistaDAO().buscar(request.getParameter("cbArtista")));
+		produto.setTipoProduto(new TipoProdutoDAO().buscar(request.getParameter("cbTipoProduto")));
+		System.out.println("cadastrado");
 
 	}	
 

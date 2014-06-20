@@ -110,6 +110,30 @@ public class GeneroDAO {
 	}
 	
 	/**
+	 * Procedure para buscar 1 registro numa TABELA
+	 * */
+	public Genero buscar(String nomeGenero){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela + " WHERE nomeGenero=?";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			pstm.setString(1, nomeGenero);
+			rs = pstm.executeQuery();
+			
+			Genero genero = new Genero();
+			while (rs.next()) {
+				genero = criar(conn, rs);				
+			}
+			
+			return genero;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
 	 * Buscar todos os registros de uma TABELA
 	 * */
 	public List<Genero> buscarTodos(){

@@ -108,6 +108,30 @@ public class TipoProdutoDAO {
 			return null;
 		}
 	}
+
+	/**
+	 * Procedure para buscar 1 registro numa TABELA
+	 * */
+	public TipoProduto buscar(String tipoProduto){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela + " WHERE tipoProduto=?";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			pstm.setString(1, tipoProduto);
+			rs = pstm.executeQuery();
+			
+			TipoProduto tipoProd = new TipoProduto();
+			while (rs.next()) {
+				tipoProd = criar(conn, rs);				
+			}
+			
+			return tipoProd;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	/**
 	 * Buscar todos os registros de uma TABELA
