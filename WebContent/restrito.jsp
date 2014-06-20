@@ -5,7 +5,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<meta http-equiv="imagetoolbar" content="no" />
-		<link rel="stylesheet" type="text/css" href="./styles/layout.css">
+		<link rel="stylesheet" type="text/css" href="../../styles/layout.css">
 		<title>Itunes - Loja Online</title>
 	</head>
 	<body id="top">
@@ -13,16 +13,13 @@
 			<jsp:include page="./header.jsp" flush="true"/> 
 		</div>
 		<div class="wrapper">
-			<jsp:include page="./menu.jsp" flush="true"/>
 		</div>
 		<div class="wrapper">
-			<jsp:include page="./body.jsp" flush="true"/>
+			<jsp:include page="../login.jsp" flush="true"/>
 		</div>
 		<div class="wrapper">
-			<jsp:include page="./top.jsp" flush="true"/>
 		</div>
 		<div class="wrapper">
-			<jsp:include page="./deals.jsp" flush="true"/>
 		</div>
 		<div class="wrapper">
 			<jsp:include page="./footer.jsp" flush="true"/>

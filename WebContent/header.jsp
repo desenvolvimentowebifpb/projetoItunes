@@ -10,7 +10,7 @@
         <li><a href="store.jsp">Store</a></li>
         <li><a href="promocoes.jsp">Promoções</a></li>
         <li><a href="pedidos.jsp">Pedidos</a></li>
-        <li><a href="restrito.jsp">Restrito</a></li>
+        <li><a href="./restrito.jsp">Restrito</a></li>
       </ul>
     </div>
     <br class="clear" />

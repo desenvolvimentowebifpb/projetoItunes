@@ -1,0 +1,18 @@
+	
+/*----------------------------------------------inputs------------------------------------------*/
+
+	input{
+			margin-bottom: 10px;
+			width: 250px;
+		}
+		
+	select{
+			margin-bottom: 10px;
+			width: 200px;
+		}
+		
+	label{
+			display: block;
+			width: 100px;
+			float: left;
+		}

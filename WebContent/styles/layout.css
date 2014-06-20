@@ -37,6 +37,23 @@ a{outline:none; text-decoration:none;}
 .imgr{float:right; margin:0 0 8px 8px; clear:right;}
 
 /* ----------------------------------------------Wrapper-------------------------------------*/
+div.row {
+  clear: both;
+  padding-top: 5px;
+  }
+
+div.row span.label {
+  float: left;
+  width: 100px;
+  text-align: right;
+  }
+
+div.row span.formw {
+  float: right;
+  width: 235px;
+  text-align: left;
+  }
+
 
 div.wrapper{
 	display:block;
@@ -54,6 +71,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	font-family:Georgia, "Times New Roman", Times, serif;
 	border-bottom:1px dotted #4C4C4C;
 	}
+
 
 /* ----------------------------------------------Generalise-------------------------------------*/
 
