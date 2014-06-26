@@ -24,7 +24,7 @@
 			<div id="intro">
 				<h2>Cadastro de Produtos (Modulo Administrador)</h2>
 				
-				<form action="cp.do" ENCTYPE="FORM" METHOD=POST>
+				<form action="cp.do" ENCTYPE="multipart/form-data" METHOD=POST>
 					
 					<p><label for="descricao">Descricao:</label>
 					<input type="text" name="descricao" id="descricao">
@@ -64,6 +64,18 @@
 							}
 						%>
 					</select>
+					
+					<p><label for="precoPadrao">Preço Padrao:</label>
+					<input type="text" name="precoPadrao" id="precoPadrao">
+
+					<p><label for="precoPromocional">Preço Promocional:</label>
+					<input type="text" name="precoPromocional" id="precoPromocional">
+					
+					<p><label for="imagens">Arquivo de Imagem:</label>
+					<input type="file" name="file" id="file" value="">
+
+					<p><label for="mp3">Arquivo Musica:</label>
+					<input type="file" name="mp3" id="mp3" value="">
 					
 					<p><input type="submit" value="Cadastrar">
 				</form>

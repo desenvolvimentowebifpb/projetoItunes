@@ -130,6 +130,30 @@ public class ProdutoDAO {
 			return null;
 		}
 	}
+
+	/**
+	 * Procedure para buscar 1 registro numa TABELA
+	 * */
+	public Produto buscar(String descricao){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela + " WHERE descricao=?";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			pstm.setString(1, descricao);
+			rs = pstm.executeQuery();
+			
+			Produto produto = new Produto();
+			while (rs.next()) {
+				produto = criar(conn, rs);				
+			}
+			
+			return produto;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	/**
 	 * Buscar todos os registros de uma TABELA
