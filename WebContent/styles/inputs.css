@@ -1,17 +1,17 @@
 	
 /*----------------------------------------------inputs------------------------------------------*/
 
-	input{
+#intro	.input{
 			margin-bottom: 10px;
 			width: 250px;
 		}
 		
-	select{
+#intro	.select{
 			margin-bottom: 10px;
 			width: 200px;
 		}
 		
-	label{
+#intro	.label{
 			display: block;
 			width: 100px;
 			float: left;

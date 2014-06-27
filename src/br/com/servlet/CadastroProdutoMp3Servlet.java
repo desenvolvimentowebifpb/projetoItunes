@@ -58,13 +58,11 @@ public class CadastroProdutoMp3Servlet extends HttpServlet {
 				FileItem item = (FileItem) it.next();
 				if (item.isFormField()) {
 					if (item.getFieldName().equals("cbMp3")) {produto = new ProdutoDAO().buscar(item.getString());}
-					System.out.println("Produto Descricao: "+produto.getDescricao());
 					produtoFile.setCodProduto(produto.getId());
 					produtoFile.setDataCadastro(Calendar.getInstance());
 					produtoFile.setDataUltAlteracao(Calendar.getInstance());
 					produtoFile.setLoginCadastro(new Long(1));
 				}else{
-					System.out.println(item.getContentType());
 					if (item.getContentType().equals("audio/mpeg")) {
 						mp3Arquivo = item.get();
 						produtoFile.setArquivo(mp3Arquivo);

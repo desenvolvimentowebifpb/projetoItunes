@@ -68,19 +68,16 @@ public class CadastroProdutoServlet extends HttpServlet {
 				FileItem item = (FileItem) it.next();
 				if (item.isFormField()) {
 					if (item.getFieldName().equals("descricao")) {
-						produto.setDescricao(item.getString());
-						System.out.println(produto.getDescricao());}
+						produto.setDescricao(item.getString());}
 					if (item.getFieldName().equals("cbGenero")) {produto.setGenero(new GeneroDAO().buscar(item.getString()));}
 					if (item.getFieldName().equals("cbArtista")) {produto.setArtista(new ArtistaDAO().buscar(item.getString()));}
 					if (item.getFieldName().equals("cbTipoProduto")) {produto.setTipoProduto(new TipoProdutoDAO().buscar(item.getString()));}
 					if (item.getFieldName().equals("precoPadrao")){produto.setPrecoPadrao(new StringToBigDecimal().StringToBigDecimalValue(item.getString()));}
 					if (item.getFieldName().equals("precoPromocional")){produto.setPrecoPromocional(new StringToBigDecimal().StringToBigDecimalValue(item.getString()));}
 				}else{
-					System.out.println(item.getContentType());
 					if (item.getContentType().equals("image/pjpeg")) {
 						imgArquivo = item.get();
 						produto.setImage(imgArquivo);
-						System.out.println("Imagem salva...");
 					}
 				}
 				produto.setLoginCadastro(new Long(1));
@@ -94,7 +91,6 @@ public class CadastroProdutoServlet extends HttpServlet {
 				request.setAttribute("produto", produto);
 				request.getRequestDispatcher("./cadastro_produto_view.jsp").forward(request, response);
 			}else{
-				System.out.println(map.get("message"));
 				request.setAttribute("message", map.get("message"));
 				request.getRequestDispatcher("./cadastro_produto_error.jsp").forward(request, response);
 			}

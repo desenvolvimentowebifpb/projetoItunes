@@ -38,9 +38,7 @@ public class ProdutoImagemServlet extends HttpServlet {
 		 
         // Recupera o parâmetro
         String text = request.getParameter("texto");
-        System.out.println("PArametro recebido: "+text);
         Produto produto = new ProdutoDAO().buscar(text);
-        System.out.println(produto.getDescricao());
         InputStream in = new ByteArrayInputStream(produto.getImage());
         BufferedImage image = ImageIO.read(in);
         OutputStream out = null;

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -145,7 +146,6 @@ public class ProdutoDAO {
 			
 			Produto produto=null;
 			while (rs.next()) {
-				System.out.println("Entrou na busca...");
 				produto = criar(conn, rs);	
 			}
 			
@@ -162,6 +162,32 @@ public class ProdutoDAO {
 	public List<Produto> buscarTodos(){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela;
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			rs = pstm.executeQuery();
+			List<Produto> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				list.add(criar(conn, rs));
+			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			conn.close();
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * Buscar todos os registros de uma TABELA
+	 * */
+	public List<Produto> buscarTodosPromocao(){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela+" WHERE precoPromocional < precoPadrao";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
@@ -211,6 +237,43 @@ public class ProdutoDAO {
 			return null;
 		}
 	}
+
+	/**
+	 * Buscar todos os registros de uma TABELA
+	 * */
+	public List<Produto> buscar9ItensComMP3(){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela;
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			rs = pstm.executeQuery();
+			List<Produto> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				Produto tempProduto = new Produto();
+				tempProduto = criar(conn, rs);
+				if (new ProdutoFileDAO().validatedExist(tempProduto.getId())==true) {
+					list.add(tempProduto);
+				}
+			}
+			
+			Collections.shuffle(list);
+			
+			while (list.size()%3!=0 && list.size()>12) {
+				list.remove(0);
+				Collections.shuffle(list);
+			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			conn.close();
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	/**
 	 * Buscar registros baseado em parte de uma campo numa TABELA
@@ -248,7 +311,6 @@ public class ProdutoDAO {
 	private Produto criar(Connection conn, ResultSet rs){
 		Produto temp = new Produto();
 		try {
-			System.out.println("Criando objeto Musica...");
 			temp.setId(rs.getLong("id"));
 			
 			Calendar dataCadastro = Calendar.getInstance();
@@ -278,7 +340,6 @@ public class ProdutoDAO {
 			
 			return temp;
 		} catch (Exception e) {
-			System.out.println("Nao retornou a musica...");
 			e.printStackTrace();
 			return null;
 		}

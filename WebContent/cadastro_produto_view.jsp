@@ -1,7 +1,9 @@
+<%@page import="java.text.NumberFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.util.*" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page import="br.com.dao.GeneroDAO" %>
 <%@ page import="br.com.model.produto.Genero" %>
 <%@ page import="br.com.model.produto.Produto" %>
@@ -29,13 +31,16 @@
 					<li>
 						<% Produto produto = (Produto) request.getAttribute("produto"); 
 						   String img = produto.getDescricao();
+						    NumberFormat nf = NumberFormat.getCurrencyInstance();
 						    out.println("<div class=\"imgholder\">");
 						    out.println("<a><img src=\"imagem.do?texto="+img+"\" alt=\"\"></a>");
 						    out.println("</div>");
-							out.println("<p> Descricao do Produto: "+produto.getDescricao());
-							out.println("<p> Artista: "+produto.getArtista().getNomeArtista());
-							out.println("<p> Genero: "+produto.getGenero().getNomeGenero());
-							out.println("<p> Tipo de Produto: "+produto.getTipoProduto().getTipoProduto());
+							out.println("<p>Descricao do Produto: "+produto.getDescricao());
+							out.println("<p>Artista: "+produto.getArtista().getNomeArtista());
+							out.println("<p>Genero: "+produto.getGenero().getNomeGenero());
+							out.println("<p>Preço Padrao: "+nf.format(produto.getPrecoPadrao().doubleValue()));
+							out.println("<p>Preço Promocional: "+nf.format(produto.getPrecoPromocional().doubleValue()));
+							out.println("<p>Tipo de Produto: "+produto.getTipoProduto().getTipoProduto());
 							out.println("<p>");
 						%>
 					</li>

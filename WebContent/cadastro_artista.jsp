@@ -2,15 +2,12 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page import="java.util.*" %>
-<%@page import="java.text.NumberFormat"%>
 <%@ page import="br.com.dao.GeneroDAO" %>
 <%@ page import="br.com.model.produto.Genero" %>
-<%@ page import="br.com.model.produto.Produto" %>
 <%@ page import="br.com.dao.ArtistaDAO" %>
 <%@ page import="br.com.model.pessoa.Artista" %>
 <%@ page import="br.com.dao.TipoProdutoDAO" %>
 <%@ page import="br.com.model.produto.TipoProduto" %>
-
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -25,27 +22,18 @@
 		</div>
 		<div class="wrapper">
 			<div id="intro">
-				<h2>Cadastro de Produto Completo(Modulo Administrador)</h2>
-				<ul>
-					<li>
-						<% Produto produto = (Produto) request.getAttribute("produto"); 
-						   String img = produto.getDescricao();
-						    NumberFormat nf = NumberFormat.getCurrencyInstance();
-						    out.println("<div class=\"imgholder\">");
-						    out.println("<a><img src=\"imagem.do?texto="+img+"\" alt=\"\"></a>");
-						    out.println("</div>");
-							out.println("<p>Descricao do Produto: "+produto.getDescricao());
-							out.println("<p>Artista: "+produto.getArtista().getNomeArtista());
-							out.println("<p>Genero: "+produto.getGenero().getNomeGenero());
-							out.println("<p>Preço Padrao: "+nf.format(produto.getPrecoPadrao().doubleValue()));
-							out.println("<p>Preço Promocional: "+nf.format(produto.getPrecoPromocional().doubleValue()));
-							out.println("<p>Tipo de Produto: "+produto.getTipoProduto().getTipoProduto());
-							out.println("<p>");
-						%>
-					</li>
-				</ul>
+				<h2>Cadastro de Artistas (Modulo Administrador)</h2>
+				
+				<form action="ca.do" ENCTYPE="form" METHOD=POST>
+					
+					<p><label for="artista">Artista:</label>
+					<input type="text" name="artista" id="artista">
+				
+					<p><input type="submit" value="Cadastrar">
+				</form>
+			   
+			   <br class="clear" />
 			</div>
-		    <br class="clear" />
 		</div>
 		<div class="wrapper">
 			<jsp:include page="./footer_admin.jsp" flush="true"></jsp:include>

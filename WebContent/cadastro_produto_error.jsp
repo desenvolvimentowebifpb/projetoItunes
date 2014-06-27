@@ -25,7 +25,7 @@
 				<h2>Error no Cadastro (Modulo Administrador)</h2>
 				<%
 					String message = (String) request.getAttribute("message");
-					out.write(message);
+					out.write("<h2>"+message+"</h2>");
 				%>
 			   <br class="clear" />
 			</div>

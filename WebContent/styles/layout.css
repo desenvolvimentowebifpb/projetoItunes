@@ -162,7 +162,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	height:280px;
 	padding:10px;
 	color:#333333;
-	background-color:#FDC609;
+	background-color:#E8E8E8;
 	}
 
 #latest .fl_right h2, #latest .fl_right p{
@@ -189,9 +189,9 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 #latest ul li{
 	display:block;
 	float:left;
-	width:100px;
-	height:100px;
-	margin:0 15px 0 0;
+	width:110px;
+	height:110px;
+	margin:0 0px 0 0;
 	padding:4px;
 	border:1px solid #333333;
 	}
