@@ -73,15 +73,15 @@
 					
 					<p><label for="imagens">Arquivo de Imagem:</label>
 					<input type="file" name="file" id="file" value="">
-
-					<p><label for="mp3">Arquivo Musica:</label>
-					<input type="file" name="mp3" id="mp3" value="">
 					
 					<p><input type="submit" value="Cadastrar">
 				</form>
 			   
 			   <br class="clear" />
 			</div>
+		</div>
+		<div class="wrapper">
+			<jsp:include page="./footer_admin.jsp" flush="true"></jsp:include>
 		</div>
 		<div class="wrapper">
 			<jsp:include page="./footer.jsp" flush="true"/>

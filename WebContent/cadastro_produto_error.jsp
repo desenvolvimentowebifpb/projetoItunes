@@ -4,12 +4,10 @@
 <%@ page import="java.util.*" %>
 <%@ page import="br.com.dao.GeneroDAO" %>
 <%@ page import="br.com.model.produto.Genero" %>
-<%@ page import="br.com.model.produto.Produto" %>
 <%@ page import="br.com.dao.ArtistaDAO" %>
 <%@ page import="br.com.model.pessoa.Artista" %>
 <%@ page import="br.com.dao.TipoProdutoDAO" %>
 <%@ page import="br.com.model.produto.TipoProduto" %>
-
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -24,24 +22,13 @@
 		</div>
 		<div class="wrapper">
 			<div id="intro">
-				<h2>Cadastro de Produto (Modulo Administrador)</h2>
-				<ul>
-					<li>
-						<% Produto produto = (Produto) request.getAttribute("produto"); 
-						   String img = produto.getDescricao();
-						    out.println("<div class=\"imgholder\">");
-						    out.println("<a><img src=\"imagem.do?texto="+img+"\" alt=\"\"></a>");
-						    out.println("</div>");
-							out.println("<p> Descricao do Produto: "+produto.getDescricao());
-							out.println("<p> Artista: "+produto.getArtista().getNomeArtista());
-							out.println("<p> Genero: "+produto.getGenero().getNomeGenero());
-							out.println("<p> Tipo de Produto: "+produto.getTipoProduto().getTipoProduto());
-							out.println("<p>");
-						%>
-					</li>
-				</ul>
+				<h2>Error no Cadastro (Modulo Administrador)</h2>
+				<%
+					String message = (String) request.getAttribute("message");
+					out.write(message);
+				%>
+			   <br class="clear" />
 			</div>
-		    <br class="clear" />
 		</div>
 		<div class="wrapper">
 			<jsp:include page="./footer_admin.jsp" flush="true"></jsp:include>

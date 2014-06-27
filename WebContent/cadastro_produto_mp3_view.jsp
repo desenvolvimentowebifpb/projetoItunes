@@ -24,7 +24,7 @@
 		</div>
 		<div class="wrapper">
 			<div id="intro">
-				<h2>Cadastro de Produto (Modulo Administrador)</h2>
+				<h2>Cadastro de Produto Completo(Modulo Administrador)</h2>
 				<ul>
 					<li>
 						<% Produto produto = (Produto) request.getAttribute("produto"); 
@@ -36,6 +36,7 @@
 							out.println("<p> Artista: "+produto.getArtista().getNomeArtista());
 							out.println("<p> Genero: "+produto.getGenero().getNomeGenero());
 							out.println("<p> Tipo de Produto: "+produto.getTipoProduto().getTipoProduto());
+							out.println("<p> MP3 Cadastrado com sucesso.");
 							out.println("<p>");
 						%>
 					</li>

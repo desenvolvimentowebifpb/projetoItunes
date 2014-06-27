@@ -49,7 +49,7 @@ public class ProdutoFileDAO {
 		sql = "INSERT INTO "+ tabela +
 				" (codProduto,arquivo , loginCadastro, dataCadastro, dataUltAlteracao)"+ 
 				" VALUES(" +
-				"?,?,?,?)";
+				"?,?,?,?,?)";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
@@ -167,6 +167,34 @@ public class ProdutoFileDAO {
 		
 	}
 	
+	/**
+	 * Procedure para verificar se existe
+	 * */
+	public boolean validatedExist(Long codProduto){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela + " WHERE codProduto=?";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			pstm.setLong(1, codProduto);
+			rs = pstm.executeQuery();
+			
+			ProdutoFile produtoFile = null;
+			while (rs.next()) {
+				produtoFile = criar(conn, rs);				
+			}
+			
+			if (produtoFile!=null) {
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 	/**
 	 * Converte o resultSet num objeto em memoria

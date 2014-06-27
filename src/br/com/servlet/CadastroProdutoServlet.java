@@ -1,10 +1,8 @@
 package br.com.servlet;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,17 +17,14 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.tomcat.jni.File;
 
-import br.com.actions.ImageSaveOnDisk;
 import br.com.converters.StringToBigDecimal;
 import br.com.dao.ArtistaDAO;
 import br.com.dao.GeneroDAO;
 import br.com.dao.ProdutoDAO;
-import br.com.dao.ProdutoFileDAO;
 import br.com.dao.TipoProdutoDAO;
 import br.com.model.produto.Produto;
-import br.com.model.produto.ProdutoFile;
+import br.com.validated.ProdutoValidated;
 
 /**
  * Servlet implementation class CadastroProdutoServlet
@@ -56,9 +51,7 @@ public class CadastroProdutoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Produto produto = new Produto();
-		ProdutoFile produtoFile = new ProdutoFile();
 		byte[] imgArquivo = null;
-		byte[] mp3Arquivo = null;
 		
 		FileItemFactory itemFile = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(itemFile);
@@ -88,35 +81,22 @@ public class CadastroProdutoServlet extends HttpServlet {
 						imgArquivo = item.get();
 						produto.setImage(imgArquivo);
 						System.out.println("Imagem salva...");
-					}else if (item.getContentType().equals("audio/mpeg")) {
-						mp3Arquivo = item.get();
-						produtoFile.setArquivo(mp3Arquivo);
-						produtoFile.setDataCadastro(Calendar.getInstance());
-						produtoFile.setDataUltAlteracao(Calendar.getInstance());
-						produtoFile.setId(new Long(1));
-						System.out.println("MP3 salvo...");
 					}
 				}
 				produto.setLoginCadastro(new Long(1));
 				produto.setDataCadastro(Calendar.getInstance());
 				produto.setDataUltAlteracao(Calendar.getInstance());
-				
-				if (produto.getImage()!= null) {
-					if (new ProdutoDAO().inserir(produto)) {
-						Produto tempProduto = new ProdutoDAO().buscar(produto.getDescricao());
-						if (tempProduto!= null) {
-							produtoFile.setCodProduto(tempProduto.getId());
-							new ProdutoFileDAO().inserir(produtoFile);
-							request.setAttribute("produto", produto);
-							request.getRequestDispatcher("./cadastro_produto_view.jsp").forward(request, response);
-						}else{
-							System.out.println("Nao cadastrou...");
-						}
-					}
-				}else{
-					
-				}
-				
+			}
+			
+			HashMap<String, String> map = new ProdutoValidated().isValid(produto);
+			if (map.get("boolean").equals("true")) {
+				new ProdutoDAO().inserir(produto);
+				request.setAttribute("produto", produto);
+				request.getRequestDispatcher("./cadastro_produto_view.jsp").forward(request, response);
+			}else{
+				System.out.println(map.get("message"));
+				request.setAttribute("message", map.get("message"));
+				request.getRequestDispatcher("./cadastro_produto_error.jsp").forward(request, response);
 			}
 	}	
 	

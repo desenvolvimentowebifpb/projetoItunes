@@ -112,16 +112,16 @@ public class ProdutoDAO {
 	 * */
 	public Produto buscar(Long id){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE id=?";
+		sql = "SELECT * FROM " + tabela + " WHERE id= ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
 			pstm.setLong(1, id);
 			rs = pstm.executeQuery();
 			
-			Produto produto = new Produto();
+			Produto produto = null;
 			while (rs.next()) {
-				produto = criar(conn, rs);				
+				produto = criar(conn, rs);	
 			}
 			
 			return produto;
@@ -136,16 +136,17 @@ public class ProdutoDAO {
 	 * */
 	public Produto buscar(String descricao){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE descricao=?";
+		sql = "SELECT * FROM " + tabela + " WHERE descricao= ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
 			pstm.setString(1, descricao);
 			rs = pstm.executeQuery();
 			
-			Produto produto = new Produto();
+			Produto produto=null;
 			while (rs.next()) {
-				produto = criar(conn, rs);				
+				System.out.println("Entrou na busca...");
+				produto = criar(conn, rs);	
 			}
 			
 			return produto;
@@ -179,7 +180,36 @@ public class ProdutoDAO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	/**
+	 * Buscar todos os registros de uma TABELA
+	 * */
+	public List<Produto> buscarTodosComMp3(){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela;
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
+		try {
+			rs = pstm.executeQuery();
+			List<Produto> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				Produto tempProduto = new Produto();
+				tempProduto = criar(conn, rs);
+				if (new ProdutoFileDAO().validatedExist(tempProduto.getId())==false) {
+					list.add(tempProduto);
+				}
+			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			conn.close();
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	/**
@@ -189,7 +219,7 @@ public class ProdutoDAO {
 	 * */
 	public List<Produto> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE nomeProduto like ?";
+		sql = "SELECT * FROM " + tabela + " WHERE descricao like ?";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
@@ -218,6 +248,7 @@ public class ProdutoDAO {
 	private Produto criar(Connection conn, ResultSet rs){
 		Produto temp = new Produto();
 		try {
+			System.out.println("Criando objeto Musica...");
 			temp.setId(rs.getLong("id"));
 			
 			Calendar dataCadastro = Calendar.getInstance();
@@ -230,7 +261,7 @@ public class ProdutoDAO {
 			
 			temp.setLoginCadastro(rs.getLong("loginCadastro"));
 			
-			java.sql.Blob blob = rs.getBlob("imagem");
+			java.sql.Blob blob = rs.getBlob("image");
 			byte[] img;
 			ByteOutputStream bout = new ByteOutputStream();
 			bout.write(blob.getBinaryStream());
@@ -247,6 +278,8 @@ public class ProdutoDAO {
 			
 			return temp;
 		} catch (Exception e) {
+			System.out.println("Nao retornou a musica...");
+			e.printStackTrace();
 			return null;
 		}
 	}

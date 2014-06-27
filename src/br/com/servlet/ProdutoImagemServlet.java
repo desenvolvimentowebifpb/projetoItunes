@@ -34,11 +34,13 @@ public class ProdutoImagemServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("image/png");
+		response.setContentType("image/jpg");
 		 
         // Recupera o parâmetro
         String text = request.getParameter("texto");
+        System.out.println("PArametro recebido: "+text);
         Produto produto = new ProdutoDAO().buscar(text);
+        System.out.println(produto.getDescricao());
         InputStream in = new ByteArrayInputStream(produto.getImage());
         BufferedImage image = ImageIO.read(in);
         OutputStream out = null;
