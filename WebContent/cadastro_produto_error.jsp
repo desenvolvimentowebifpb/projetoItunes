@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ page import="java.util.*" %>
-<%@ page import="br.com.dao.GeneroDAO" %>
-<%@ page import="br.com.model.produto.Genero" %>
-<%@ page import="br.com.dao.ArtistaDAO" %>
-<%@ page import="br.com.model.pessoa.Artista" %>
-<%@ page import="br.com.dao.TipoProdutoDAO" %>
-<%@ page import="br.com.model.produto.TipoProduto" %>
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -22,7 +16,7 @@
 		</div>
 		<div class="wrapper">
 			<div id="intro">
-				<h2>Error no Cadastro (Modulo Administrador)</h2>
+				<h2>Error no Cadastro de Produto (Modulo Administrador)</h2>
 				<%
 					String message = (String) request.getAttribute("message");
 					out.write("<h2>"+message+"</h2>");

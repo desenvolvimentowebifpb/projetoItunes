@@ -18,8 +18,8 @@ public class ArtistaValidated {
 	HashMap<String, String> values = new HashMap<>();
 	public HashMap<String, String> isValid(Artista artista){
 		
-		if (artista.getNomeArtista().trim().isEmpty()) {
-			message.concat(" <p> &#8227 Artista Invalido");
+		if (artista.getNomeArtista().trim().isEmpty() || artista.getNomeArtista()==null) {
+			message+=(" <p> &#8227 Artista Invalido");
 			value++;
 		}
 		

@@ -18,7 +18,7 @@ public class ProdutoValidated {
 	public HashMap<String, String> isValid(Produto produto){
 		
 		if (produto.getDescricao().trim().isEmpty()) {
-			message.concat(" <p> &#8227 Descrição Invalida");
+			message+=(" <p> &#8227 Descrição Invalida");
 			value++;
 		}
 		

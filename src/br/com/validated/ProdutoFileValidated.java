@@ -20,7 +20,7 @@ public class ProdutoFileValidated {
 	public HashMap<String, String> isValid(ProdutoFile produtoFile){
 		
 		if (produtoFile.getArquivo() == null) {
-			message.concat(" <p> &#8227 Arquivo Invalido");
+			message+=(" <p> &#8227 Arquivo Invalido");
 			value++;
 		}
 		

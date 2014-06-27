@@ -18,6 +18,8 @@ public class ProdutoFile extends CadastroModel {
 	 * */
 	public ProdutoFile() {
 		super();
+		codProduto = new Long(0);
+		arquivo = null;
 	}
 
 	/**

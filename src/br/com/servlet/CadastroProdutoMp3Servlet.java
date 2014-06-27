@@ -2,6 +2,7 @@ package br.com.servlet;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import br.com.dao.ProdutoDAO;
 import br.com.dao.ProdutoFileDAO;
 import br.com.model.produto.Produto;
 import br.com.model.produto.ProdutoFile;
+import br.com.validated.ProdutoFileValidated;
 
 /**
  * Servlet implementation class CadastroProdutoMp3Servlet
@@ -70,14 +72,18 @@ public class CadastroProdutoMp3Servlet extends HttpServlet {
 					}
 				}
 			}
-
-			if (produtoFile.getArquivo()!=null) {
+			
+			HashMap<String, String> map = new ProdutoFileValidated().isValid(produtoFile);
+			
+			if (map.get("boolean").equals("true")) {
 				new ProdutoFileDAO().inserir(produtoFile);
 				request.setAttribute("produto", produto);
 				request.getRequestDispatcher("./cadastro_produto_mp3_view.jsp").forward(request, response);
 			}else{
-				
+				request.setAttribute("message", map.get("message"));
+				request.getRequestDispatcher("./cadastro_produto_mp3_error.jsp").forward(request, response);
 			}
+
 	}
 
 }
