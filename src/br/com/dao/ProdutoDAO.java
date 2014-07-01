@@ -211,6 +211,33 @@ public class ProdutoDAO {
 	/**
 	 * Buscar todos os registros de uma TABELA
 	 * */
+	public List<Produto> buscarTodosArtista(Long idArtista){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela+" WHERE artista=?";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			pstm.setLong(1, idArtista);
+			rs = pstm.executeQuery();
+			List<Produto> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				list.add(criarSemImagem(conn, rs));
+			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			conn.close();
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * Buscar todos os registros de uma TABELA
+	 * */
 	public List<Produto> buscarTodosComMp3(){
 		conn = new ConnectionFactory().getConnection();
 		sql = "SELECT * FROM " + tabela;
@@ -243,7 +270,7 @@ public class ProdutoDAO {
 	 * */
 	public List<Produto> buscar9ItensComMP3(){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela;
+		sql = "SELECT * FROM " + tabela + " ORDER BY dataCadastro LIMIT 14";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
@@ -252,7 +279,7 @@ public class ProdutoDAO {
 			
 			while (rs.next()) {
 				Produto tempProduto = new Produto();
-				tempProduto = criar(conn, rs);
+				tempProduto = criarSemImagem(conn, rs);
 				if (new ProdutoFileDAO().validatedExist(tempProduto.getId())==true) {
 					list.add(tempProduto);
 				}
@@ -261,7 +288,7 @@ public class ProdutoDAO {
 			Collections.shuffle(list);
 			
 			while (list.size()%3!=0 && list.size()>12) {
-				list.remove(0);
+				list.add(list.get(0));
 				Collections.shuffle(list);
 			}
 			
@@ -330,6 +357,38 @@ public class ProdutoDAO {
 			img = bout.getBytes();
 			bout.close();
 			temp.setImage(img);
+			
+			temp.setDescricao(rs.getString("descricao"));
+			temp.setArtista(new ArtistaDAO().buscar(rs.getLong("artista")));
+			temp.setGenero(new GeneroDAO().buscar(rs.getLong("genero")));
+			temp.setTipoProduto(new TipoProdutoDAO().buscar(rs.getLong("tipoProduto")));
+			temp.setPrecoPadrao(rs.getBigDecimal("precoPadrao"));
+			temp.setPrecoPromocional(rs.getBigDecimal("precoPromocional"));
+			
+			return temp;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * Converte o resultSet num objeto em memoria
+	 * */
+	private Produto criarSemImagem(Connection conn, ResultSet rs){
+		Produto temp = new Produto();
+		try {
+			temp.setId(rs.getLong("id"));
+			
+			Calendar dataCadastro = Calendar.getInstance();
+			dataCadastro.setTime(rs.getDate("dataCadastro"));
+			temp.setDataCadastro(dataCadastro);
+			
+			Calendar dataUltAlteracao = Calendar.getInstance();
+			dataUltAlteracao.setTime(rs.getDate("dataUltAlteracao"));
+			temp.setDataUltAlteracao(dataUltAlteracao);
+			
+			temp.setLoginCadastro(rs.getLong("loginCadastro"));
 			
 			temp.setDescricao(rs.getString("descricao"));
 			temp.setArtista(new ArtistaDAO().buscar(rs.getLong("artista")));

@@ -25,6 +25,9 @@
 			<jsp:include page="./header.jsp" flush="true"/> 
 		</div>
 		<div class="wrapper">
+			<jsp:include page="./login.jsp" flush="true"/> 
+		</div>
+		<div class="wrapper">
 			<div id="intro">
 				<h2>Cadastro de Produto (Modulo Administrador)</h2>
 				<ul>

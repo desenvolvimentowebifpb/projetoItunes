@@ -2,13 +2,14 @@
 	<div id="newsletter">
 		<h2>Receba nossas promoções!</h2>
 		<p>Digite abaixo o seu email, e receba nosssas promoções!</p>
-		 <form action="promocoes.do" method="post">
-        <fieldset>
-          <legend>Promocoes</legend>
-          <input type="text" value="Digite seu Email"  onfocus="this.value=(this.value=='Digite seu Email...')? '' : this.value ;" />
-          <input type="submit" name="deals_subscrib" id="deals_subscrib" value="Cadastrar..." />
-        </fieldset>
+		<form action="promocoes.do" method="post">
+        	<fieldset>
+          		<legend>Promocoes</legend>
+          		<input type="text" value="Digite seu Email"  onfocus="this.value=(this.value=='Digite seu Email...')? '' : this.value ;" />
+         		 <input type="submit" name="deals_subscrib" id="deals_subscrib" value="Cadastrar..." />
+        	</fieldset>
       </form>
+      <p> Para remover seu email das promocoes <a href="./removeEmail.jsp"> clique aqui!</a></p>
 	</div>
 		<%@ page import="java.util.*" %>
 		<%@ page import="java.util.Collections" %>

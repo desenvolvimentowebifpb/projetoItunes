@@ -1,13 +1,4 @@
-<div id="intro">
-		<h2>Digite seus dados abaixo:</h2>
-	<form action="login.do" METHOD="get">
-
-				Nome de Usuario:
-				<input type=TEXT name="login">
-				Senha:</td>
-				<input type=PASSWORD name="password">
-				<input type="SUBMIT" value="OK"> 
-
-	</form>
+<div id="logon">
+			<jsp:include page="./vl.do" flush="true"/>
    <br class="clear" />
 </div>

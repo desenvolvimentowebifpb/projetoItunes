@@ -14,14 +14,7 @@
 			<jsp:include page="./header.jsp" flush="true"/> 
 		</div>
 		<div class="wrapper">
-			<div id="intro">
-				<h2>Error no Cadastro de Artista(Modulo Administrador)</h2>
-				<%
-					String message = (String) request.getAttribute("message");
-					out.write("<h2>"+message+"</h2>");
-				%>
-			   <br class="clear" />
-			</div>
+			<jsp:include page="./login.jsp" flush="true"/> 
 		</div>
 		<div class="wrapper">
 			<jsp:include page="./footer_admin.jsp" flush="true"></jsp:include>

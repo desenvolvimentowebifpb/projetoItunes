@@ -94,10 +94,11 @@ public class TipoUsuarioDAO {
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			TipoUsuario tipoUsuario = new TipoUsuario();
+			TipoUsuario tipoUsuario = null;
 			pstm.setLong(1, id);
 			rs = pstm.executeQuery();
-			
+			System.out.println("TipoUsuario busca...");
+
 			while (rs.next()) {
 				tipoUsuario = criar(conn, rs);
 			}
@@ -186,9 +187,9 @@ public class TipoUsuarioDAO {
 			temp.setLoginCadastro(rs.getLong("loginCadastro"));
 			
 			temp.setTipoUsuario(rs.getString("tipoUsuario"));
-			
 			return temp;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -1,0 +1,14 @@
+atalhos URL para os SErvlets
+
+
+"/ca.do"      >>> CadastroArtistaServlet
+"/cc.do"      >>> CadastroClienteServlet
+"/cg.do"      >>> CadastroGeneroServlet
+"/cpa.do"     >>> CadastroProdutoArtistaServlet
+"/cpc.do"     >>> CadastroProdutoCategoriaServlet
+"/cpm.do"     >>> CadastroProdutoMp3Servlet
+"/cpp.do"     >>> CadastroProdutoPromocaoServlet
+"/cp.do"      >>> CadastroProdutoServlet
+"/imagem.do"  >>> ProdutoImagemServlet
+"/Teste"      >>> Teste
+"/vc.do"      >>> VerificaCookiesServlet

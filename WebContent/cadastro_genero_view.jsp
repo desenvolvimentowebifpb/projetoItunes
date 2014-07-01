@@ -19,12 +19,17 @@
 			<jsp:include page="./header.jsp" flush="true"/> 
 		</div>
 		<div class="wrapper">
+			<jsp:include page="./login.jsp" flush="true"/> 
+		</div>
+		<div class="wrapper">
 				<div id="intro">
 				<h2>Cadastro de Genero (Modulo Administrador)</h2>
 				<ul>
 					<li>
 						<% Genero genero = (Genero) request.getAttribute("genero"); 
 							out.println("<p>Nome do Genero: "+genero.getNomeGenero());
+							out.println("<p>");
+							out.println("<p>");
 							out.println("<p>");
 						%>
 					</li>

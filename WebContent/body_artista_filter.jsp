@@ -3,10 +3,16 @@
 		<%@ page import="br.com.dao.ProdutoDAO" %>
 		<%@ page import="java.util.*" %>
 		<%@ page import="java.text.NumberFormat" %>
-	<h1>Top Music da Semana</h1>
+	
+	<%
+		String artista = (String) request.getAttribute("artista"); 
+		if(artista!=null){
+			out.println("<h2>"+artista+"</h2>");
+		}
+	%>
 	<ul>
-		<%
-			List<Produto> listProduto = new ProdutoDAO().buscar9ItensComMP3();
+		<%	Long idArtista = (Long) request.getAttribute("idArtista");
+			List<Produto> listProduto = new ProdutoDAO().buscarTodosArtista(idArtista);
 			NumberFormat nf = NumberFormat.getCurrencyInstance();
 			Produto produto;
 			Produto produto_l;

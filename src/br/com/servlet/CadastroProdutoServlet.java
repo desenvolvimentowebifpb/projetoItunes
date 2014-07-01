@@ -33,7 +33,7 @@ import br.com.validated.ProdutoValidated;
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 , // 1MB
         maxFileSize = 1024 *  16,   // 16 KB
-        maxRequestSize = 1024 * 1024 * 16  // 16 MB
+        maxRequestSize = 1024 *  16  // 16 KB
 )
 public class CadastroProdutoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

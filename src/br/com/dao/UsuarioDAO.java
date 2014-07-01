@@ -124,7 +124,7 @@ public class UsuarioDAO {
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
-			Usuario usuario = new Usuario();
+			Usuario usuario = null;
 			pstm.setString(1, login);
 			rs = pstm.executeQuery();
 			

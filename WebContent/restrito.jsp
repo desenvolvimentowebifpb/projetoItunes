@@ -5,7 +5,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<meta http-equiv="imagetoolbar" content="no" />
-		<link rel="stylesheet" type="text/css" href="../../styles/layout.css">
+		<link rel="stylesheet" type="text/css" href="./styles/layout.css">
+		<link rel="stylesheet" type="text/css" href="./styles/inputs.css">
 		<title>Itunes - Loja Online</title>
 	</head>
 	<body id="top">
@@ -13,13 +14,56 @@
 			<jsp:include page="./header.jsp" flush="true"/> 
 		</div>
 		<div class="wrapper">
+			<jsp:include page="./login.jsp" flush="true"/> 
 		</div>
 		<div class="wrapper">
-			<jsp:include page="../login.jsp" flush="true"/>
+			<div id="intro">
+				<h2>Usuario Cadastrado</h2>
+				<p>Digite seus dados abaixo:</p>
+				<form action="login.do" METHOD="post">
+					<p><label for="usuario">Login:</label>
+					<input type="text" name="usuario" id="usuario"></p>
+					
+					<p><label for="senha">Senha:</label>
+					<input type=PASSWORD name="senha">
+					<input type="SUBMIT" value="OK"> </p>
+				</form>
+				<%
+					if(request.getAttribute("errorLogin")!=null){
+						out.println(request.getAttribute("errorLogin"));
+					}				
+				%>				
+
+				<h2>Usuario Não Cadastrado</h2>
+				<p>Caso não possua cadastrado, digite seu CPF abaixo:</p>
+				<form action="cc.do" METHOD="post">
+					<p><label for ="cadastroCliente">CPF:</label>
+					<input type="text" name="cadastroCliente">
+					<input type="submit" value="Enviar">
+				</form>
+					<%
+						if(request.getAttribute("errorCadastro")!=null){
+							out.println(request.getAttribute("errorCadastro"));
+						}				
+					%>	
+			   <br class="clear" />
+			</div>
 		</div>
 		<div class="wrapper">
-		</div>
-		<div class="wrapper">
+			<div id="intro">
+				<h2> </h2>
+				<% 
+				if(request.getAttribute("message")!=null){
+					out.println(request.getAttribute("message"));
+				}		
+				%>
+				<p> O navegador precisa autorizar a gravação de cookies.
+				 Saiba como. Clique aqui e verifique.
+				<form action="vc.do?flag=1" METHOD=POST>
+					<input TYPE="submit" VALUE="Verificar">
+				</form>
+				<br class="clear" />
+			</div>
 		</div>
 		<div class="wrapper">
 			<jsp:include page="./footer.jsp" flush="true"/>

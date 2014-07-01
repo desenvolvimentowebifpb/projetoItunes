@@ -75,12 +75,14 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 
 /* ----------------------------------------------Generalise-------------------------------------*/
 
-#header, #intro, #latest, #breadcrumb, #container, #footer, #copyright{
+#header, #intro, #latest, #breadcrumb, #container, #footer, #copyright, #logon{
 	position:relative;
 	margin:0 auto 0;
 	display:block;
 	width:960px;
 	}
+	
+
 
 /* ----------------------------------------------Header-------------------------------------*/
 
@@ -89,6 +91,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	margin:0 auto 0;
 	display:block;
 	width:920px;
+	
 	padding:5px 20px 15px 20px;
 	color:#DBDBDB;
 	background-color:#232323;
@@ -252,6 +255,63 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 
 #intro p.readmore a{
 	padding:5px 15px;
+	font-weight:bold;
+	color:#FDC609;
+	background-color:#1E1E1E;
+	}
+
+/* ----------------------------------------------Logon-------------------------------------*/
+
+#logon{
+	padding:1px 0 1px 0;
+	}
+
+#logon ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+	}
+
+#logon li{
+	display:block;
+	float:left;
+	width:300px;
+	margin:0 30px 0 0;
+	padding:0;
+	}
+
+#logon li.last{
+	margin-right:0;
+	}
+
+#logon h2, #logon p, #logon img, #logon div{
+	margin:0 0 0px 0;
+	padding:0;
+	}
+
+#logon h2{
+	padding-bottom:8px;
+	color:#FDC609;
+	background-color:#131313;
+	}
+
+#logon div.imgholder{
+	display:block;
+	width:300px;
+	}
+
+#logon div.imgholder img{
+	margin:0;
+	padding:0;
+	border:none;
+	}
+
+#logon p.readmore{
+	margin:0;
+	}
+
+#logon p.readmore a{
+	padding:0px 0px;
 	font-weight:bold;
 	color:#FDC609;
 	background-color:#1E1E1E;

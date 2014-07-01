@@ -19,12 +19,17 @@
 			<jsp:include page="./header.jsp" flush="true"/> 
 		</div>
 		<div class="wrapper">
+			<jsp:include page="./login.jsp" flush="true"/> 
+		</div>
+		<div class="wrapper">
 				<div id="intro">
 				<h2>Cadastro de Artista (Modulo Administrador)</h2>
 				<ul>
 					<li>
 						<% Artista artista = (Artista) request.getAttribute("artista"); 
 							out.println("<p>Nome do Artista: "+artista.getNomeArtista());
+							out.println("<p>");
+							out.println("<p>");
 							out.println("<p>");
 						%>
 					</li>

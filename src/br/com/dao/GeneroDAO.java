@@ -138,7 +138,7 @@ public class GeneroDAO {
 	 * */
 	public List<Genero> buscarTodos(){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela;
+		sql = "SELECT * FROM " + tabela +" ORDER BY nomeGenero";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
@@ -167,7 +167,7 @@ public class GeneroDAO {
 	 * */
 	public List<Genero> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE nomeGenero like ?";
+		sql = "SELECT * FROM " + tabela + " WHERE nomeGenero like ? ORDER BY nomeGenero";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {

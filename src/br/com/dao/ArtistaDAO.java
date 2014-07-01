@@ -140,7 +140,7 @@ public class ArtistaDAO {
 	 * */
 	public List<Artista> buscarTodos(){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela;
+		sql = "SELECT * FROM " + tabela +" ORDER BY nomeArtista";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
@@ -169,7 +169,7 @@ public class ArtistaDAO {
 	 * */
 	public List<Artista> buscarParte(String string){
 		conn = new ConnectionFactory().getConnection();
-		sql = "SELECT * FROM " + tabela + " WHERE nomeArtista like ?";
+		sql = "SELECT * FROM " + tabela + " WHERE nomeArtista like ? ORDER BY nomeArtista";
 		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
 		
 		try {
