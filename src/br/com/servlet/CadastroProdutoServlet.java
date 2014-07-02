@@ -18,6 +18,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import br.com.actions.VerificaLogin;
 import br.com.converters.StringToBigDecimal;
 import br.com.dao.ArtistaDAO;
 import br.com.dao.GeneroDAO;
@@ -50,50 +51,57 @@ public class CadastroProdutoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Produto produto = new Produto();
-		byte[] imgArquivo = null;
-		
-		FileItemFactory itemFile = new DiskFileItemFactory();
-		ServletFileUpload upload = new ServletFileUpload(itemFile);
-		List<?> items = null;
-		
-			try {
-				items = upload.parseRequest(request);
-			} catch (org.apache.commons.fileupload.FileUploadException e) {
-				e.printStackTrace();
-			}
+		if (VerificaLogin.isAdminLogged(request, response)) {
+			Produto produto = new Produto();
+			byte[] imgArquivo = null;
 			
-			Iterator<?> it = items.iterator();
-			while (it.hasNext()) {
-				FileItem item = (FileItem) it.next();
-				if (item.isFormField()) {
-					if (item.getFieldName().equals("descricao")) {
-						produto.setDescricao(item.getString());}
-					if (item.getFieldName().equals("cbGenero")) {produto.setGenero(new GeneroDAO().buscar(item.getString()));}
-					if (item.getFieldName().equals("cbArtista")) {produto.setArtista(new ArtistaDAO().buscar(item.getString()));}
-					if (item.getFieldName().equals("cbTipoProduto")) {produto.setTipoProduto(new TipoProdutoDAO().buscar(item.getString()));}
-					if (item.getFieldName().equals("precoPadrao")){produto.setPrecoPadrao(new StringToBigDecimal().StringToBigDecimalValue(item.getString()));}
-					if (item.getFieldName().equals("precoPromocional")){produto.setPrecoPromocional(new StringToBigDecimal().StringToBigDecimalValue(item.getString()));}
-				}else{
-					if (item.getContentType().equals("image/pjpeg")) {
-						imgArquivo = item.get();
-						produto.setImage(imgArquivo);
-					}
+			FileItemFactory itemFile = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(itemFile);
+			List<?> items = null;
+			
+				try {
+					items = upload.parseRequest(request);
+				} catch (org.apache.commons.fileupload.FileUploadException e) {
+					e.printStackTrace();
 				}
-				produto.setLoginCadastro(new Long(1));
-				produto.setDataCadastro(Calendar.getInstance());
-				produto.setDataUltAlteracao(Calendar.getInstance());
-			}
-			
-			HashMap<String, String> map = new ProdutoValidated().isValid(produto);
-			if (map.get("boolean").equals("true")) {
-				new ProdutoDAO().inserir(produto);
-				request.setAttribute("produto", produto);
-				request.getRequestDispatcher("./cadastro_produto_view.jsp").forward(request, response);
-			}else{
-				request.setAttribute("message", map.get("message"));
-				request.getRequestDispatcher("./cadastro_produto_error.jsp").forward(request, response);
-			}
+				
+				Iterator<?> it = items.iterator();
+				while (it.hasNext()) {
+					FileItem item = (FileItem) it.next();
+					if (item.isFormField()) {
+						if (item.getFieldName().equals("descricao")) {
+							produto.setDescricao(item.getString());}
+						if (item.getFieldName().equals("cbGenero")) {produto.setGenero(new GeneroDAO().buscar(item.getString()));}
+						if (item.getFieldName().equals("cbArtista")) {produto.setArtista(new ArtistaDAO().buscar(item.getString()));}
+						if (item.getFieldName().equals("cbTipoProduto")) {produto.setTipoProduto(new TipoProdutoDAO().buscar(item.getString()));}
+						if (item.getFieldName().equals("precoPadrao")){produto.setPrecoPadrao(new StringToBigDecimal().StringToBigDecimalValue(item.getString()));}
+						if (item.getFieldName().equals("precoPromocional")){produto.setPrecoPromocional(new StringToBigDecimal().StringToBigDecimalValue(item.getString()));}
+					}else{
+						if (item.getContentType().equals("image/pjpeg")) {
+							imgArquivo = item.get();
+							produto.setImage(imgArquivo);
+						}
+					}
+					produto.setLoginCadastro(new Long(1));
+					produto.setDataCadastro(Calendar.getInstance());
+					produto.setDataUltAlteracao(Calendar.getInstance());
+				}
+				
+				HashMap<String, String> map = new ProdutoValidated().isValid(produto);
+				if (map.get("boolean").equals("true")) {
+					new ProdutoDAO().inserir(produto);
+					request.setAttribute("produto", produto);
+					request.getRequestDispatcher("./cadastro_produto_view.jsp").forward(request, response);
+				}else{
+					request.setAttribute("message", map.get("message"));
+					request.getRequestDispatcher("./cadastro_produto_error.jsp").forward(request, response);
+				}	
+		}else{
+			request.setAttribute("message", "Area Restrita - Voce Não possui privilegios para esta Operação.");
+			request.getRequestDispatcher("./cadastro_produto_error.jsp").forward(request, response);
+		}
+		
+
 	}	
 	
 }

@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class CadastroProdutoCategoriasServlet
  */
 @WebServlet("/cpc.do")
-public class CadastroProdutoCategoriasServlet extends HttpServlet {
+public class ViewProdutoCategoriasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CadastroProdutoCategoriasServlet() {
+    public ViewProdutoCategoriasServlet() {
         super();
     }
 

@@ -17,6 +17,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import br.com.actions.VerificaLogin;
 import br.com.dao.ProdutoDAO;
 import br.com.dao.ProdutoFileDAO;
 import br.com.model.produto.Produto;
@@ -41,14 +42,15 @@ public class CadastroProdutoMp3Servlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Produto produto = new Produto();
-		ProdutoFile produtoFile = new ProdutoFile();
-		byte[] mp3Arquivo = null;
-		
-		FileItemFactory itemFile = new DiskFileItemFactory();
-		ServletFileUpload upload = new ServletFileUpload(itemFile);
-		List<?> items = null;
-		
+		if (VerificaLogin.isAdminLogged(request, response)) {
+			Produto produto = new Produto();
+			ProdutoFile produtoFile = new ProdutoFile();
+			byte[] mp3Arquivo = null;
+			
+			FileItemFactory itemFile = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(itemFile);
+			List<?> items = null;
+			
 			try {
 				items = upload.parseRequest(request);
 			} catch (org.apache.commons.fileupload.FileUploadException e) {
@@ -83,6 +85,11 @@ public class CadastroProdutoMp3Servlet extends HttpServlet {
 				request.setAttribute("message", map.get("message"));
 				request.getRequestDispatcher("./cadastro_produto_mp3_error.jsp").forward(request, response);
 			}
+		}else{
+			request.setAttribute("message", "Area Restrita - Voce Não possui privilegios para esta Operação.");
+			request.getRequestDispatcher("./cadastro_produto_mp3_error.jsp").forward(request, response);
+		}
+		
 
 	}
 

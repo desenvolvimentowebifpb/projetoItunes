@@ -73,7 +73,6 @@ public class VerificaLoginServlet extends HttpServlet {
 				}
 			}
 		}
-	
 	}
 
 	/**

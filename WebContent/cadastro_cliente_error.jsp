@@ -16,9 +16,9 @@
 		<div class="wrapper">
 			<jsp:include page="./login.jsp" flush="true"/> 
 		</div>
-				<div class="wrapper">
+		<div class="wrapper">
 			<div id="intro">
-				<h2>Error no Cadastro de Artistas(Modulo Administrador)</h2>
+				<h2>Error no Cadastro de Cliente </h2>
 				<%
 					String message = (String) request.getAttribute("message");
 					out.write("<h2>"+message+"</h2>");

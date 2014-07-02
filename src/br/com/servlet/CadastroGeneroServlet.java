@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.actions.VerificaLogin;
 import br.com.dao.GeneroDAO;
 import br.com.model.produto.Genero;
 import br.com.validated.GeneroValidated;
@@ -35,21 +36,27 @@ public class CadastroGeneroServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Genero genero = new Genero();
-		genero.setNomeGenero((String)request.getParameter("genero"));
-		genero.setDataCadastro(Calendar.getInstance());
-		genero.setDataUltAlteracao(Calendar.getInstance());
-		genero.setLoginCadastro(new Long(1));
-		
-		HashMap<String, String> map = new GeneroValidated().isValid(genero);
-		if (map.get("boolean").equals("true")) {
-			new GeneroDAO().inserir(genero);
-			request.setAttribute("genero", genero);
-			request.getRequestDispatcher("./cadastro_genero_view.jsp").forward(request, response);
+		if (VerificaLogin.isAdminLogged(request, response)) {
+			Genero genero = new Genero();
+			genero.setNomeGenero((String)request.getParameter("genero"));
+			genero.setDataCadastro(Calendar.getInstance());
+			genero.setDataUltAlteracao(Calendar.getInstance());
+			genero.setLoginCadastro(new Long(1));
+			
+			HashMap<String, String> map = new GeneroValidated().isValid(genero);
+			if (map.get("boolean").equals("true")) {
+				new GeneroDAO().inserir(genero);
+				request.setAttribute("genero", genero);
+				request.getRequestDispatcher("./cadastro_genero_view.jsp").forward(request, response);
+			}else{
+				request.setAttribute("message", map.get("message"));
+				request.getRequestDispatcher("./cadastro_genero_error.jsp").forward(request, response);
+			}
 		}else{
-			request.setAttribute("message", map.get("message"));
+			request.setAttribute("message", "Area Restrita - Voce Não possui privilegios para esta Operação.");
 			request.getRequestDispatcher("./cadastro_genero_error.jsp").forward(request, response);
 		}
+		
 	}	
 	
 }

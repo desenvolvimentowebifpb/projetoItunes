@@ -16,13 +16,13 @@ import br.com.model.pessoa.Artista;
  * Servlet implementation class CadastroProdutoArtistaServlet
  */
 @WebServlet("/cpa.do")
-public class CadastroProdutoArtistaServlet extends HttpServlet {
+public class ViewProdutoArtistaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CadastroProdutoArtistaServlet() {
+    public ViewProdutoArtistaServlet() {
         super();
     }
 
