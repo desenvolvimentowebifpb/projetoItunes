@@ -30,6 +30,9 @@ public class GeneroDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,6 +58,9 @@ public class GeneroDAO {
 			pstm.setDate(4, new java.sql.Date(genero.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
 			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
+			
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,6 +84,9 @@ public class GeneroDAO {
 			pstm.setDate(3, new java.sql.Date(genero.getDataUltAlteracao().getTimeInMillis()));
 			pstm.setLong(4, genero.getId());
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -102,6 +111,9 @@ public class GeneroDAO {
 				genero = criar(conn, rs);				
 			}
 			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return genero;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -125,6 +137,10 @@ public class GeneroDAO {
 			while (rs.next()) {
 				genero = criar(conn, rs);				
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			
 			return genero;
 		} catch (SQLException e) {
@@ -151,7 +167,7 @@ public class GeneroDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -182,7 +198,7 @@ public class GeneroDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();

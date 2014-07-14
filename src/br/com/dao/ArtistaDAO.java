@@ -32,9 +32,13 @@ public class ArtistaDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return false;
 		}
 	}
@@ -56,10 +60,12 @@ public class ArtistaDAO {
 			pstm.setDate(3, new java.sql.Date(artista.getDataCadastro().getTimeInMillis()));
 			pstm.setDate(4, new java.sql.Date(artista.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
-			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return false;
 		}
 	}
@@ -80,9 +86,12 @@ public class ArtistaDAO {
 			pstm.setDate(3, new java.sql.Date(artista.getDataUltAlteracao().getTimeInMillis()));
 			pstm.setLong(4, artista.getId());
 			pstm.executeUpdate();
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return false;
 		}
 	}
@@ -103,10 +112,13 @@ public class ArtistaDAO {
 			while (rs.next()) {
 				artista = criar(conn, rs);				
 			}
-			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return artista;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return null;
 		}
 	}
@@ -127,10 +139,13 @@ public class ArtistaDAO {
 			while (rs.next()) {
 				artista = criar(conn, rs);				
 			}
-			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return artista;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return null;
 		}
 	}
@@ -154,9 +169,11 @@ public class ArtistaDAO {
 			if (rs!=null) {rs.close();}
 			pstm.close();
 			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return null;
 		}
 		
@@ -185,9 +202,11 @@ public class ArtistaDAO {
 			if (rs!=null) {rs.close();}
 			pstm.close();
 			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return null;
 		}
 		

@@ -36,6 +36,9 @@ public class ProdutoDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,6 +73,9 @@ public class ProdutoDAO {
 			pstm.setDate(10, new java.sql.Date(produto.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
 			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
+			
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,6 +107,10 @@ public class ProdutoDAO {
 			pstm.setDate(8, new java.sql.Date(produto.getDataUltAlteracao().getTimeInMillis()));
 			pstm.setLong(9, produto.getId());
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
+			
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -125,6 +135,10 @@ public class ProdutoDAO {
 				produto = criar(conn, rs);	
 			}
 			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
+			
 			return produto;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -148,6 +162,10 @@ public class ProdutoDAO {
 			while (rs.next()) {
 				produto = criar(conn, rs);	
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			
 			return produto;
 		} catch (SQLException e) {
@@ -174,7 +192,7 @@ public class ProdutoDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -200,7 +218,7 @@ public class ProdutoDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -227,7 +245,34 @@ public class ProdutoDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * Buscar todos os registros de uma TABELA
+	 * */
+	public List<Produto> buscarTodosGenero(Long idGenero){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela+" WHERE genero=?";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			pstm.setLong(1, idGenero);
+			rs = pstm.executeQuery();
+			List<Produto> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				list.add(criarSemImagem(conn, rs));
+			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -257,7 +302,7 @@ public class ProdutoDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -294,7 +339,7 @@ public class ProdutoDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -324,7 +369,7 @@ public class ProdutoDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();

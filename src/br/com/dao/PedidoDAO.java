@@ -31,6 +31,9 @@ public class PedidoDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -64,6 +67,8 @@ public class PedidoDAO {
 			pstm.setDate(10, new java.sql.Date(pedido.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
 			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -87,6 +92,10 @@ public class PedidoDAO {
 			while (rs.next()) {
 				pedido = criar(conn, rs);				
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			
 			return pedido;
 		} catch (SQLException e) {
@@ -113,7 +122,7 @@ public class PedidoDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();

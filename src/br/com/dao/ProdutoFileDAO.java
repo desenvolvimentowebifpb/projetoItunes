@@ -34,6 +34,8 @@ public class ProdutoFileDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,6 +63,8 @@ public class ProdutoFileDAO {
 			pstm.setDate(5, new java.sql.Date(produtoFile.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
 			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,6 +89,9 @@ public class ProdutoFileDAO {
 			pstm.setDate(3, new java.sql.Date(produtoFile.getDataUltAlteracao().getTimeInMillis()));
 			pstm.setLong(4, produtoFile.getId());
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,7 +115,9 @@ public class ProdutoFileDAO {
 			while (rs.next()) {
 				produtoFile = criar(conn, rs);				
 			}
-			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return produtoFile;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -132,7 +141,9 @@ public class ProdutoFileDAO {
 			while (rs.next()) {
 				produtoFile = criar(conn, rs);				
 			}
-			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return produtoFile;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -158,7 +169,7 @@ public class ProdutoFileDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -183,6 +194,10 @@ public class ProdutoFileDAO {
 			while (rs.next()) {
 				produtoFile = criar(conn, rs);				
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			
 			if (produtoFile!=null) {
 				return true;

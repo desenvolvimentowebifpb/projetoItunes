@@ -31,6 +31,8 @@ public class FormaPagamentoDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,7 +58,8 @@ public class FormaPagamentoDAO {
 			pstm.setDate(4, new java.sql.Date(formaPagamento.getDataCadastro().getTimeInMillis()));
 			pstm.setDate(5, new java.sql.Date(formaPagamento.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
-			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -81,6 +84,9 @@ public class FormaPagamentoDAO {
 			pstm.setLong(3, formaPagamento.getLoginCadastro());
 			pstm.setDate(4, new java.sql.Date(formaPagamento.getDataUltAlteracao().getTimeInMillis()));
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -104,6 +110,10 @@ public class FormaPagamentoDAO {
 			while (rs.next()) {
 				formaPagamento=criar(conn, rs);
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return formaPagamento;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -126,6 +136,10 @@ public class FormaPagamentoDAO {
 			while (rs.next()) {
 				list.add(criar(conn, rs));
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			
 			return list;
 		} catch (SQLException e) {
@@ -154,6 +168,10 @@ public class FormaPagamentoDAO {
 			while (rs.next()) {
 				list.add(criar(conn, rs));
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			
 			return list;
 		} catch (SQLException e) {

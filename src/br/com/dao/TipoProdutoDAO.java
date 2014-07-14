@@ -30,6 +30,8 @@ public class TipoProdutoDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,6 +57,9 @@ public class TipoProdutoDAO {
 			pstm.setDate(4, new java.sql.Date(tipoProduto.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
 			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
+			
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,6 +83,9 @@ public class TipoProdutoDAO {
 			pstm.setDate(3, new java.sql.Date(tipoProduto.getDataUltAlteracao().getTimeInMillis()));
 			pstm.setLong(4, tipoProduto.getId());
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,7 +109,9 @@ public class TipoProdutoDAO {
 			while (rs.next()) {
 				tipoProduto = criar(conn, rs);				
 			}
-			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return tipoProduto;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -125,7 +135,9 @@ public class TipoProdutoDAO {
 			while (rs.next()) {
 				tipoProd = criar(conn, rs);				
 			}
-			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return tipoProd;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -148,7 +160,9 @@ public class TipoProdutoDAO {
 			while (rs.next()) {
 				list.add(criar(conn, rs));
 			}
-			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			if (rs!=null) {rs.close();}
 			pstm.close();
 			conn.close();
@@ -182,7 +196,7 @@ public class TipoProdutoDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();

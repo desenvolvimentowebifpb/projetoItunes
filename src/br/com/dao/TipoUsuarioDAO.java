@@ -30,6 +30,8 @@ public class TipoUsuarioDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,7 +56,8 @@ public class TipoUsuarioDAO {
 			pstm.setDate(3, new java.sql.Date(tipoUsuario.getDataCadastro().getTimeInMillis()));
 			pstm.setDate(4, new java.sql.Date(tipoUsuario.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
-			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,6 +81,8 @@ public class TipoUsuarioDAO {
 			pstm.setDate(3, new java.sql.Date(tipoUsuario.getDataUltAlteracao().getTimeInMillis()));
 			pstm.setLong(4, tipoUsuario.getId());
 			pstm.executeUpdate();
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -102,7 +107,9 @@ public class TipoUsuarioDAO {
 			while (rs.next()) {
 				tipoUsuario = criar(conn, rs);
 			}
-			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return tipoUsuario;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,7 +135,7 @@ public class TipoUsuarioDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -159,7 +166,7 @@ public class TipoUsuarioDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();

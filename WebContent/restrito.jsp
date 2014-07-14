@@ -7,6 +7,18 @@
 		<meta http-equiv="imagetoolbar" content="no" />
 		<link rel="stylesheet" type="text/css" href="./styles/layout.css">
 		<link rel="stylesheet" type="text/css" href="./styles/inputs.css">
+				<script>
+			function formatar(mascara, documento){
+			  var i = documento.value.length;
+			  var saida = mascara.substring(0,1);
+			  var texto = mascara.substring(i)
+			
+			  if (texto.substring(0,1) != saida){
+			            documento.value += texto.substring(0,1);
+			  }
+			
+			}
+		</script>
 		<title>Itunes - Loja Online</title>
 	</head>
 	<body id="top">
@@ -35,10 +47,10 @@
 				%>				
 
 				<h2>Usuario Não Cadastrado</h2>
-				<p>Caso não possua cadastrado, digite seu CPF abaixo:</p>
-				<form action="cc.do" METHOD="post">
-					<p><label for ="cadastroCliente">CPF:</label>
-					<input type="text" name="cadastroCliente">
+				<p>Caso não possua cadastro, digite seu CPF abaixo:</p>
+				<form action="vcc.do" METHOD="get">
+					<p><label for ="cpf">CPF:</label>
+					<input type="text" name="cpf" id="cpf" size= 30  maxlength="14" OnKeyPress="formatar('###.###.###-##', this)">
 					<input type="submit" value="Enviar">
 				</form>
 					<%
@@ -64,6 +76,9 @@
 				</form>
 				<br class="clear" />
 			</div>
+		</div>
+		<div class="wrapper">
+			<jsp:include page="./deals.jsp" flush="true"/>
 		</div>
 		<div class="wrapper">
 			<jsp:include page="./footer.jsp" flush="true"/>

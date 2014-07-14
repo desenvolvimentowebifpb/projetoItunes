@@ -135,9 +135,9 @@ public class CalendarToDate {
 	 * Transformar uma String "dd/MM/yyyy" em uma data valida
 	 * */
 	public static Calendar StringToDate(String data){
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");  
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 		try {
-			Date date = (Date)formatter.parse(data);
+			Date date = (Date) formatter.parse(data);
 			Calendar ca = Calendar.getInstance();
 			ca.setTime(date);
 			return ca;

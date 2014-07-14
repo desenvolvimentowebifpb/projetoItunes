@@ -3,10 +3,16 @@
 		<%@ page import="br.com.dao.ProdutoDAO" %>
 		<%@ page import="java.util.*" %>
 		<%@ page import="java.text.NumberFormat" %>
-	<h1>Top Music da Semana</h1>
+	
+	<%
+		String artista = (String) request.getAttribute("genero"); 
+		if(artista!=null){
+			out.println("<h2>"+artista+"</h2>");
+		}
+	%>
 	<ul>
-		<%
-			List<Produto> listProduto = new ProdutoDAO().buscar9ItensComMP3();
+		<%	Long idGenero = (Long) request.getAttribute("idGenero");
+			List<Produto> listProduto = new ProdutoDAO().buscarTodosGenero(idGenero);
 			NumberFormat nf = NumberFormat.getCurrencyInstance();
 			Produto produto;
 			Produto produto_l;
@@ -31,7 +37,7 @@
 						out.println("</p>");
 						out.println("<p class=\"readmore\">Preço: "+nf.format(produto.getPrecoPadrao().doubleValue())+" </p>");
 						out.println("<p></p>");
-						out.println("<p class=\"readmore\"> <a href=\"ac.do?produto="+produto.getId()+"\">Comprar &raquo</a> </p>");
+						out.println("<p class=\"readmore\"> <a href=\"#\">Comprar &raquo</a> </p>");
 						out.println("<p></p>");
 					    out.println("</li>");
 					}else{
@@ -49,7 +55,7 @@
 						out.println("</p>");
 						out.println("<p class=\"readmore\">Preço: "+nf.format(produto.getPrecoPadrao().doubleValue())+" </p>");
 						out.println("<p></p>");
-						out.println("<p class=\"readmore\"> <a href=\"ac.do?produto="+produto.getId()+"\">Comprar &raquo</a> </p>");
+						out.println("<p class=\"readmore\"> <a href=\"#\">Comprar &raquo</a> </p>");
 						out.println("<p></p>");
 					    out.println("</li>");
 					}

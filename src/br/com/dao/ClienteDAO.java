@@ -30,9 +30,12 @@ public class ClienteDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return false;
 		}
 	}
@@ -78,9 +81,12 @@ public class ClienteDAO {
 			pstm.setDate(18, new java.sql.Date(cliente.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
 			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return false;
 		}
 	}
@@ -119,9 +125,13 @@ public class ClienteDAO {
 			pstm.setDate(15, new java.sql.Date(cliente.getDataUltAlteracao().getTimeInMillis()));
 			pstm.setLong(16, cliente.getId());
 			pstm.executeUpdate();
+			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return false;
 		}
 	}
@@ -141,9 +151,13 @@ public class ClienteDAO {
 			while (rs.next()) {
 				cliente = criar(conn, rs);
 			}
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return cliente;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return null;
 		}
 	}
@@ -166,10 +180,11 @@ public class ClienteDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return null;
 		}
 		
@@ -197,13 +212,47 @@ public class ClienteDAO {
 			
 			if (rs!=null) {rs.close();}
 			pstm.close();
-			conn.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			new ConnectionFactory().closeConnection(conn);
 			return null;
 		}
 		
+	}
+	
+	/**
+	 * Procedure para verificar se existe
+	 * */
+	public boolean validatedExist(String cpf){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela + " WHERE cpf=?";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			pstm.setString(1, cpf);
+			rs = pstm.executeQuery();
+			
+			Cliente cliente = null;
+			while (rs.next()) {
+				cliente = criar(conn, rs);				
+			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
+			
+			if (cliente!=null) {
+				return true;
+			}else{
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	/**
@@ -245,6 +294,7 @@ public class ClienteDAO {
 			
 			return temp;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -24,4 +24,13 @@ public class ConnectionFactory {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public void closeConnection(Connection conn) {
+		try {
+			conn.close();
+			System.out.println("Conexao Fechada...");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

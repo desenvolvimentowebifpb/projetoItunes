@@ -30,6 +30,8 @@ public class UsuarioDAO {
 		try {
 			pstm.setLong(1, id);
 			pstm.executeUpdate();
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,7 +62,8 @@ public class UsuarioDAO {
 			pstm.setDate(7, new java.sql.Date(usuario.getDataCadastro().getTimeInMillis()));
 			pstm.setDate(8, new java.sql.Date(usuario.getDataUltAlteracao().getTimeInMillis()));
 			pstm.execute();
-			
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,6 +88,8 @@ public class UsuarioDAO {
 			pstm.setDate(4, new java.sql.Date(usuario.getDataUltAlteracao().getTimeInMillis()));
 			pstm.setLong(5, new Long(1));
 			pstm.executeUpdate();
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,6 +113,10 @@ public class UsuarioDAO {
 			while (rs.next()) {
 				usuario=criar(conn, rs);
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return usuario;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -131,6 +140,10 @@ public class UsuarioDAO {
 			while (rs.next()) {
 				usuario=criar(conn, rs);
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return usuario;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -152,6 +165,10 @@ public class UsuarioDAO {
 			while (rs.next()) {
 				list.add(criar(conn, rs));
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -177,6 +194,10 @@ public class UsuarioDAO {
 			while (rs.next()) {
 				list.add(criar(conn, rs));
 			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -210,6 +231,7 @@ public class UsuarioDAO {
 			
 			return temp;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
