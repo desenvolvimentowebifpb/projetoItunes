@@ -22,7 +22,7 @@
 			<jsp:include page="./menu.jsp" flush="true"/>
 		</div>
 		<div class="wrapper">
-			<jsp:include page="./body.jsp" flush="true"/>
+			<jsp:include page="./body_promocoes.jsp" flush="true"/>
 		</div>
 		<div class="wrapper">
 			<jsp:include page="./top.jsp" flush="true"/>

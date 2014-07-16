@@ -1,18 +1,15 @@
 package br.com.servlet;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.actions.EncryptPassword;
-import br.com.converters.CalendarToDate;
 import br.com.dao.UsuarioDAO;
 import br.com.model.pessoa.Usuario;
 
@@ -45,16 +42,10 @@ public class LoginServlet extends HttpServlet {
 				if (user!=null) {
 					if (new EncryptPassword().encrypt(senha.trim()).equals(user.getSenha())) {
 						HttpSession session = request.getSession(true);
-						session.setAttribute(user.getLogin(), "true");
-						session.setMaxInactiveInterval(300);
-						
-						Cookie cookie = new Cookie("usuarioNome", user.getLogin());
-						cookie.setMaxAge(300);
-						response.addCookie(cookie);
-						
-						Cookie cookie2 = new Cookie("sessionTime", CalendarToDate.DateToDateHourFormated(Calendar.getInstance()));
-						cookie2.setMaxAge(300);
-						response.addCookie(cookie2);
+						session.setAttribute("usuarioLogado", "true");
+						session.setAttribute("usuarioNome", user.getLogin());
+						System.out.println("Nome do usuario da sessao: "+user.getLogin());
+						session.setMaxInactiveInterval(900);
 						
 						if (user.getTipoUsuario().getId()==1) {
 							response.sendRedirect("./menu_admin.jsp");

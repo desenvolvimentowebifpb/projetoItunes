@@ -36,7 +36,7 @@ public class CadastroArtistaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if (VerificaLogin.isAdminLogged(request, response)) {
+		if (VerificaLogin.isAdminLogged(request, response)==true) {
 			Artista artista = new Artista();
 			artista.setNomeArtista((String)request.getParameter("artista"));
 			artista.setDataCadastro(Calendar.getInstance());

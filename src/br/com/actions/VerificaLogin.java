@@ -1,6 +1,5 @@
 package br.com.actions;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,86 +10,32 @@ import br.com.model.pessoa.Usuario;
 public class VerificaLogin {
 	
 	public static boolean isAdminLogged(HttpServletRequest request, HttpServletResponse response){
-		String usuarioNome ="";
-		String usuarioValue="";
-		Cookie[] cookies = request.getCookies();
-		Cookie c = null;
-		if (cookies!=null) {
-			int length = cookies.length;
-			for (int i = 0; i < length; i++) {
-				c = cookies[i];
-				if (c.getName().equals("usuarioNome")) {
-					usuarioNome = c.getName();
-					usuarioValue = c.getValue();
-				}
-			}
-		}
-		
-		if (usuarioNome.trim().isEmpty() || usuarioValue.equals("false")) {
-			return false;
-		}else{
-			HttpSession session = request.getSession();
-			if (session==null) {
-				return false;
+		String usuarioLogado ="";
+		String usuarioNome="";
+
+		HttpSession session = request.getSession();
+		usuarioLogado = (String) session.getAttribute("usuarioLogado");
+		System.out.println("Esta logado? " + usuarioLogado);
+		if (usuarioLogado.equals("true")) {
+			usuarioNome = (String) session.getAttribute("usuarioNome");
+			Usuario usuario = new UsuarioDAO().buscar(usuarioNome);
+			System.out.println("Tipo de usuario: "+usuario.getTipoUsuario().getId());
+			
+			if (usuario.getTipoUsuario().getId().equals(new Long(1))) {
+				System.out.println("Usuario esta logado...");
+				return true;
 			}else{
-				String session_atribut = (String) session.getAttribute(usuarioValue);
-				if (session_atribut!=null) {
-					if (session_atribut.equals("true")) {
-						Usuario usuario = new UsuarioDAO().buscar(usuarioValue);
-						if (usuario.getTipoUsuario().getId()==new Long(1)) {
-							return true;
-						}else{
-							return false;
-						}
-					}else{
-						return false;
-					}
-				}else{
-					return false;
-				}
+				System.out.println("Usuario invalido logado...");
+				System.out.println("Usuario "+usuario.getLogin() +" do tipo "+ usuario.getTipoUsuario().getId());
+				return false;
 			}
+		}else{
+			System.out.println("Usuario não esta logado...");
+			return false;
 		}
 	}
 
 	public static boolean isClienteLogged(HttpServletRequest request, HttpServletResponse response){
-		String usuarioNome ="";
-		String usuarioValue="";
-		Cookie[] cookies = request.getCookies();
-		Cookie c = null;
-		if (cookies!=null) {
-			int length = cookies.length;
-			for (int i = 0; i < length; i++) {
-				c = cookies[i];
-				if (c.getName().equals("usuarioNome")) {
-					usuarioNome = c.getName();
-					usuarioValue = c.getValue();
-				}
-			}
-		}
-		
-		if (usuarioNome.trim().isEmpty() || usuarioValue.equals("false")) {
-			return false;
-		}else{
-			HttpSession session = request.getSession();
-			if (session==null) {
-				return false;
-			}else{
-				String session_atribut = (String) session.getAttribute(usuarioValue);
-				if (session_atribut!=null) {
-					if (session_atribut.equals("true")) {
-						Usuario usuario = new UsuarioDAO().buscar(usuarioValue);
-						if (usuario.getTipoUsuario().getId()!=new Long(1)) {
-							return true;
-						}else{
-							return false;
-						}
-					}else{
-						return false;
-					}
-				}else{
-					return false;
-				}
-			}
-		}
+		return false;
 	}
 }

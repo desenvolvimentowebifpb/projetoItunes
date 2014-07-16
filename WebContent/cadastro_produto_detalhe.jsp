@@ -44,7 +44,7 @@
 							out.println("<p>Preço Padrao: "+nf.format(produto.getPrecoPadrao().doubleValue()));
 							out.println("<p>Preço Promocional: "+nf.format(produto.getPrecoPromocional().doubleValue()));
 							out.println("<p>Tipo de Produto: "+produto.getTipoProduto().getTipoProduto());
-							out.println("<p class=\"readmore\"> <a href=\"ac.do?produto="+produto.getId()+"\">Comprar &raquo</a> </p>");
+							out.println("<p class=\"readmore\"> <a href=\"ac.do?idProduto="+produto.getId()+"\">Comprar &raquo</a> </p>");
 							out.println("<p>");
 						%>
 					</li>

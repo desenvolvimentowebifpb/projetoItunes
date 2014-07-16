@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,38 +29,18 @@ public class LogoffServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String usuarioNome ="";
-
-		Cookie[] cookies = request.getCookies();
-		Cookie c = null;
-		for (int i = 0; i < cookies.length; i++) {
-			c = cookies[i];
-			if (c.getName().equals("usuarioNome")) {
-				usuarioNome = c.getName();
-			}
-		}
 		
 		HttpSession session = request.getSession();
 		
 		if (session==null) {
-			if (usuarioNome.trim().isEmpty()) {
 				response.sendRedirect("./index.jsp");
-			}else{
-				c.setValue("false");
-				c.setPath("/");
-				c.setMaxAge(0);
-				response.addCookie(c);
-				response.sendRedirect("./index.jsp");
-			}
 		}else{
+
 			session.setMaxInactiveInterval(0);
 			session.setAttribute(usuarioNome, "false");
 			session.removeAttribute(usuarioNome);
 			session.invalidate();
 			
-			c.setValue("false");
-			c.setPath("/");
-			c.setMaxAge(0);
-			response.addCookie(c);
 			response.sendRedirect("./index.jsp");
 		}
 	}

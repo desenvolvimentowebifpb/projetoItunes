@@ -28,7 +28,6 @@ public class ConnectionFactory {
 	public void closeConnection(Connection conn) {
 		try {
 			conn.close();
-			System.out.println("Conexao Fechada...");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

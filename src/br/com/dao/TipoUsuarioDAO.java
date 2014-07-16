@@ -102,7 +102,6 @@ public class TipoUsuarioDAO {
 			TipoUsuario tipoUsuario = null;
 			pstm.setLong(1, id);
 			rs = pstm.executeQuery();
-			System.out.println("TipoUsuario busca...");
 
 			while (rs.next()) {
 				tipoUsuario = criar(conn, rs);

@@ -21,10 +21,8 @@
 			<jsp:include page="./header.jsp" flush="true"/> 
 		</div>
 		<div class="wrapper">
-			<div id="intro">
 				<jsp:include page="./login.jsp" flush="true"/> 
 			</div>
-		</div>
 		<div class="wrapper">
 			<div id="intro">
 				<h2>Cadastro de Artistas (Modulo Administrador)</h2>

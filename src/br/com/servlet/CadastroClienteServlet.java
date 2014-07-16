@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.actions.EncryptPassword;
 import br.com.converters.CalendarToDate;
+import br.com.dao.ClienteDAO;
 import br.com.dao.TipoUsuarioDAO;
+import br.com.dao.UsuarioDAO;
 import br.com.model.pessoa.Cliente;
 import br.com.model.pessoa.Usuario;
 import br.com.validated.ClienteValidated;
@@ -96,10 +98,10 @@ public class CadastroClienteServlet extends HttpServlet {
 			
 			HashMap<String, String> map = new ClienteValidated().isValid(cliente);
 			if (map.get("boolean").equals("true")) {
-				/*new UsuarioDAO().inserir(usuario);
+				new UsuarioDAO().inserir(usuario);
 				usuario = new UsuarioDAO().buscar(usuario.getLogin());
+				new ClienteDAO().inserir(cliente);
 				cliente.setUsuario(usuario);
-				new ClienteDAO().inserir(cliente);*/
 				
 				request.setAttribute("cliente", cliente);
 				request.getRequestDispatcher("./cadastro_cliente_view.jsp").forward(request, response);

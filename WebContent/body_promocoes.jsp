@@ -3,10 +3,10 @@
 		<%@ page import="br.com.dao.ProdutoDAO" %>
 		<%@ page import="java.util.*" %>
 		<%@ page import="java.text.NumberFormat" %>
-	<h1>Top Music da Semana</h1>
+	<h1>Promoçoes Da Semana</h1>
 	<ul>
 		<%
-			List<Produto> listProduto = new ProdutoDAO().buscar9ItensComMP3();
+			List<Produto> listProduto = new ProdutoDAO().buscar9ItensComMP3Promocao();
 			NumberFormat nf = NumberFormat.getCurrencyInstance();
 			Produto produto;
 			Produto produto_l;
@@ -31,6 +31,8 @@
 						out.println("</p>");
 						out.println("<p class=\"readmore\">Preço: "+nf.format(produto.getPrecoPadrao().doubleValue())+" </p>");
 						out.println("<p></p>");
+						out.println("<p class=\"readmore\">Preço Promocional: "+nf.format(produto.getPrecoPromocional().doubleValue())+" </p>");
+						out.println("<p></p>");
 						out.println("<p class=\"readmore\"> <a href=\"ac.do?idProduto="+produto.getId()+"\">Comprar &raquo</a> </p>");
 						out.println("<p></p>");
 					    out.println("</li>");
@@ -47,6 +49,8 @@
 						out.println("</p>"); 
 						out.println("<p> Tipo de Produto: "+produto.getTipoProduto().getTipoProduto());
 						out.println("</p>");
+						out.println("<p class=\"readmore\">Preço Promocional: "+nf.format(produto.getPrecoPromocional().doubleValue())+" </p>");
+						out.println("<p></p>");
 						out.println("<p class=\"readmore\">Preço: "+nf.format(produto.getPrecoPadrao().doubleValue())+" </p>");
 						out.println("<p></p>");
 						out.println("<p class=\"readmore\"> <a href=\"ac.do?idProduto="+produto.getId()+"\">Comprar &raquo</a> </p>");

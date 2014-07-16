@@ -346,6 +346,43 @@ public class ProdutoDAO {
 			return null;
 		}
 	}
+
+	/**
+	 * Buscar todos os registros de uma TABELA
+	 * */
+	public List<Produto> buscar9ItensComMP3Promocao(){
+		conn = new ConnectionFactory().getConnection();
+		sql = "SELECT * FROM " + tabela + " WHERE precoPromocional < precoPadrao ORDER BY dataCadastro LIMIT 14";
+		pstm = new PreparedStatementFactory().getPreparedStatement(conn, sql);
+		
+		try {
+			rs = pstm.executeQuery();
+			List<Produto> list = new ArrayList<>();
+			
+			while (rs.next()) {
+				Produto tempProduto = new Produto();
+				tempProduto = criarSemImagem(conn, rs);
+				if (new ProdutoFileDAO().validatedExist(tempProduto.getId())==true) {
+					list.add(tempProduto);
+				}
+			}
+			
+			Collections.shuffle(list);
+			
+			while (list.size()%3!=0 && list.size()>12) {
+				list.add(list.get(0));
+				Collections.shuffle(list);
+			}
+			
+			if (rs!=null) {rs.close();}
+			pstm.close();
+			new ConnectionFactory().closeConnection(conn);
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	/**
 	 * Buscar registros baseado em parte de uma campo numa TABELA
